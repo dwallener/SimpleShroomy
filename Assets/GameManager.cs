@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +34,18 @@ public class GameManager : MonoBehaviour
         _goal = GameObject.Find("goal");
         _level = GameObject.Find("level");
 
-        _globe = GameObject.Find("Globe");
+        // let's instantiate a planet from the prefab list
+        int _planetIndex = Random.Range(0,GameState._prefabList.Length);
+        _globe = Instantiate(Resources.Load(GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+
+        _globe.AddComponent<GravityAttractor>();
+        _globe.AddComponent<GlobeActions>();
+        _globe.AddComponent<SphereCollider>();
+        _globe.transform.position = Vector3.zero;
+        _globe.transform.localScale = new Vector3(5f, 5f, 5f);
+
+        // this was the naked sphere way
+        //_globe = GameObject.Find("Globe");
 
     }
 
@@ -67,8 +79,6 @@ public class GameManager : MonoBehaviour
     {
         // wait for fade
         yield return FadeOut(3);
-
-        string _sceneName;
 
         SceneManager.UnloadScene(GameState._level - 1);
         SceneManager.LoadScene(GameState._level);
