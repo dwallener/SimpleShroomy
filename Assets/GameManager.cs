@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         _globe.AddComponent<SphereCollider>();
         _globe.transform.position = Vector3.zero;
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
+        _globe.tag = "Planet";
 
         // this was the naked sphere way
         //_globe = GameObject.Find("Globe");
@@ -80,8 +81,12 @@ public class GameManager : MonoBehaviour
         // wait for fade
         yield return FadeOut(3);
 
-        SceneManager.UnloadScene(GameState._level - 1);
-        SceneManager.LoadScene(GameState._level);
+        // if we've done the level reading/randomization correctly
+        // we should now only ever need one scene...?
+        //SceneManager.LoadScene(GameState._level);
+        //SceneManager.UnloadScene(GameState._level - 1);
+        SceneManager.UnloadScene(0);
+        SceneManager.LoadScene(0);
         yield return null;
     }
 
@@ -106,6 +111,9 @@ public class GameManager : MonoBehaviour
     public void NewPlanet(int _level)
     {
         Debug.Log("New Planet");
+        CreatePlanet();
+
+        /*
         switch (_level)
         {
             case 0: Planet00(); break;
@@ -116,7 +124,43 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+        */
+
     }
+
+
+    public void CreatePlanet()
+    {
+
+        int _level = GameState._level; // less typing :)
+        int _rngLevelMod5 = Random.Range(0, GameState._levelGoals.Length);
+        int _rngNumShrooms = Random.Range(25, 76); // int Random is not inclusive
+        float _fallHeight = Random.Range(5f, 11f);
+        int _rngShroomIndex = Random.Range(1, 5);
+        Vector3 _rng;
+
+        string _shroomPrefab = "Prefabs/Shroom" + _rngShroomIndex;
+        Debug.Log("Shroom Prefab: " + _shroomPrefab);
+
+        GameObject[] _mushroom = new GameObject[_rngNumShrooms];
+
+        // have some objects drop down on it
+        for (int i = 0; i < _rngNumShrooms; i++)
+        {
+            _rng = Random.onUnitSphere * _fallHeight;
+            //Debug.Log("@: " + _rng.x + " " + _rng.y + " " + _rng.z);
+            _mushroom[i] = Instantiate(Resources.Load(_shroomPrefab, typeof(GameObject)), _rng, Quaternion.identity) as GameObject;
+            _mushroom[i].AddComponent<MushroomActions>();
+            _mushroom[i].AddComponent<Rigidbody>();
+            _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
+            _mushroom[i].AddComponent<BoxCollider>();
+            _mushroom[i].transform.parent = _globe.transform;
+        }
+
+    }
+
+
+
 
     public void Planet00()
     {
