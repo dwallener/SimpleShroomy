@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         // fill in the HUD!
         _message.GetComponent<TextMeshProUGUI>().text = "Collect Shroomies!";
         _score.GetComponent<TextMeshProUGUI>().text = "Score: " + 0.ToString() + " of ";
-        _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level].ToString();
+        _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level%5].ToString();
         _level.GetComponent<TextMeshProUGUI>().text = "LEVEL " + GameState._level.ToString();
 
     }
