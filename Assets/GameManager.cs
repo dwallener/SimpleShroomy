@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
 
     public GameObject _globe;
+    public GameObject _pawn; // let's go with Unreal terminology, lol
  
     // Let's think this through
     // Player level data and level requirements are persistent-stored in GameState
@@ -45,8 +46,11 @@ public class GameManager : MonoBehaviour
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
         _globe.tag = "Planet";
 
-        // this was the naked sphere way
-        //_globe = GameObject.Find("Globe");
+        // let's add our player sprite
+        GameObject _pawn = new GameObject();
+        _pawn.AddComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/ShroomKing1-preview", typeof(Sprite)) as Sprite;
+        _pawn.transform.position = new Vector3(0f, 0f, -2.7f);
+        _pawn.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
 
     }
 
