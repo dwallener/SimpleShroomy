@@ -112,20 +112,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("New Planet");
         CreatePlanet();
-
-        /*
-        switch (_level)
-        {
-            case 0: Planet00(); break;
-            case 1: Planet01(); break;
-            case 2: Planet02(); break;
-            case 3: Planet03(); break;
-            case 4: Planet04(); break;
-            default:
-                break;
-        }
-        */
-
     }
 
 
@@ -157,118 +143,6 @@ public class GameManager : MonoBehaviour
             _mushroom[i].transform.parent = _globe.transform;
         }
 
-    }
-
-
-
-
-    public void Planet00()
-    {
-
-        // drop things on the planet
-        int _numShrooms = 50;
-        GameObject[] _mushroom = new GameObject[_numShrooms];
-        Vector3 _rng;
-
-        // have some objects drop down on it
-        for (int i = 0; i < _numShrooms; i++)
-        {
-            _rng = Random.onUnitSphere * 7;
-            Debug.Log("@: " + _rng.x + " " + _rng.y + " " + _rng.z);
-            _mushroom[i] = Instantiate(Resources.Load("Prefabs/Shroom1", typeof(GameObject)), _rng, Quaternion.identity) as GameObject;
-            _mushroom[i].AddComponent<MushroomActions>();
-            _mushroom[i].AddComponent<Rigidbody>();
-            _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
-            _mushroom[i].AddComponent<BoxCollider>();
-            _mushroom[i].transform.parent = _globe.transform;
-        }
-    }
-
-    public void Planet01()
-    {
-
-        // drop things on the planet
-        int _numShrooms = 50;
-        GameObject[] _mushroom = new GameObject[_numShrooms];
-        Vector3 _rng;
-
-        // have some objects drop down on it
-        for (int i = 0; i < _numShrooms; i++)
-        {
-            _rng = Random.onUnitSphere * (float)Random.Range(6,11);
-            _mushroom[i] = Instantiate(Resources.Load("Prefabs/Shroom2", typeof(GameObject)), _rng, Quaternion.identity) as GameObject;
-            _mushroom[i].AddComponent<MushroomActions>();
-            _mushroom[i].AddComponent<Rigidbody>();
-            _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
-            _mushroom[i].AddComponent<BoxCollider>();
-            _mushroom[i].transform.parent = _globe.transform;
-        }
-    }
-
-    public void Planet02()
-    {
-
-        // drop things on the planet
-        int _numShrooms = 50;
-        GameObject[] _mushroom = new GameObject[_numShrooms];
-        Vector3 _rng;
-
-        // have some objects drop down on it
-        for (int i = 0; i < _numShrooms; i++)
-        {
-            _rng = Random.onUnitSphere * 7;
-            Debug.Log("@: " + _rng.x + " " + _rng.y + " " + _rng.z);
-            _mushroom[i] = Instantiate(Resources.Load("Prefabs/Shroom3", typeof(GameObject)), _rng, Quaternion.identity) as GameObject;
-            _mushroom[i].AddComponent<MushroomActions>();
-            _mushroom[i].AddComponent<Rigidbody>();
-            _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
-            _mushroom[i].AddComponent<BoxCollider>();
-            _mushroom[i].transform.parent = _globe.transform;
-        }
-    }
-
-    public void Planet03()
-    {
-
-        // drop things on the planet
-        int _numShrooms = 50;
-        GameObject[] _mushroom = new GameObject[_numShrooms];
-        Vector3 _rng;
-
-        // have some objects drop down on it
-        for (int i = 0; i < _numShrooms; i++)
-        {
-            _rng = Random.onUnitSphere * 7;
-            Debug.Log("@: " + _rng.x + " " + _rng.y + " " + _rng.z);
-            _mushroom[i] = Instantiate(Resources.Load("Prefabs/Shroom4", typeof(GameObject)), _rng, Quaternion.identity) as GameObject;
-            _mushroom[i].AddComponent<MushroomActions>();
-            _mushroom[i].AddComponent<Rigidbody>();
-            _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
-            _mushroom[i].AddComponent<BoxCollider>();
-            _mushroom[i].transform.parent = _globe.transform;
-        }
-    }
-
-    public void Planet04()
-    {
-
-        // drop things on the planet
-        int _numShrooms = 50;
-        GameObject[] _mushroom = new GameObject[_numShrooms];
-        Vector3 _rng;
-
-        // have some objects drop down on it
-        for (int i = 0; i < _numShrooms; i++)
-        {
-            _rng = Random.onUnitSphere * 7;
-            Debug.Log("@: " + _rng.x + " " + _rng.y + " " + _rng.z);
-            _mushroom[i] = Instantiate(Resources.Load("Prefabs/Shroom1", typeof(GameObject)), _rng, Quaternion.identity) as GameObject;
-            _mushroom[i].AddComponent<MushroomActions>();
-            _mushroom[i].AddComponent<Rigidbody>();
-            _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
-            _mushroom[i].AddComponent<BoxCollider>();
-            _mushroom[i].transform.parent = _globe.transform;
-        }
     }
 
 }
