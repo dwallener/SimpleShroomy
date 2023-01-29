@@ -63,4 +63,10 @@ public static class GameState
         "Prefabs/Planets/Temperate/Temperate_Design5",
     };
 
+    public static Color[] _skyboxList { get; set; } = new[]
+    {
+        new Color(0,160,240,0),
+        new Color(255,157,113,0)
+    };
+
 }

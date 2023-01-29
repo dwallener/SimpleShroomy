@@ -37,8 +37,10 @@ public class GameManager : MonoBehaviour
 
         // let's instantiate a planet from the prefab list
         int _planetIndex = Random.Range(0,GameState._prefabList.Length);
+        // for debugging
+        _planetIndex = 0;
         _globe = Instantiate(Resources.Load(GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-
+        RenderSettings.skybox.SetColor("_Tint", GameState._skyboxList[_planetIndex]);
         _globe.AddComponent<GravityAttractor>();
         _globe.AddComponent<GlobeActions>();
         _globe.AddComponent<SphereCollider>();
@@ -89,8 +91,10 @@ public class GameManager : MonoBehaviour
         // we should now only ever need one scene...?
         //SceneManager.LoadScene(GameState._level);
         //SceneManager.UnloadScene(GameState._level - 1);
-        SceneManager.UnloadScene(0);
+        SceneManager.UnloadSceneAsync(0);
         SceneManager.LoadScene(0);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
+
         yield return null;
     }
 
