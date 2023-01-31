@@ -69,4 +69,11 @@ public static class GameState
         new Color(255,157,113,0)
     };
 
+    public static string[] _songList { get; set; } = new[]
+    {
+        "Music/gypsy1",
+        "Music/gypsy2",
+        "Music/gypsy3"
+    };
+
 }

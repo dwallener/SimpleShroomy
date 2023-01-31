@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject _globe;
     public GameObject _pawn; // let's go with Unreal terminology, lol
- 
+
+    public AudioSource _audio;
+
     // Let's think this through
     // Player level data and level requirements are persistent-stored in GameState
     // So in theory, GameManager doesn't need any persistence at all
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        AudioClip _song;
 
         _curtain = GameObject.Find("curtainBlack");
 
@@ -40,9 +43,10 @@ public class GameManager : MonoBehaviour
         // for debugging
         _planetIndex = 0;
         _globe = Instantiate(Resources.Load(GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-        //RenderSettings.skybox.SetColor("_Tint", GameState._skyboxList[_planetIndex]);
+
         _globe.AddComponent<GravityAttractor>();
         _globe.AddComponent<GlobeActions>();
+
         // sphere collider sucks, can we do a mesh collider?
         //_globe.AddComponent<SphereCollider>();
         // this almost works! and I think we're well under the 255 triangles limit
@@ -53,11 +57,36 @@ public class GameManager : MonoBehaviour
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
         _globe.tag = "Planet";
 
+        // Loading a new planet should come with music, yes?
+        _audio = _globe.AddComponent<AudioSource>();
+        string _songName = "Music/gypsy" + (GameState._level % 3).ToString();
+        _song = Resources.Load(_songName, typeof(AudioClip)) as AudioClip;
+        _audio.clip = _song;
+        _audio.Play();
+
         // let's add our player sprite
+        //GameObject _pawn = new GameObject();
+        //_pawn.AddComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/ShroomKing1-preview", typeof(Sprite)) as Sprite;
+        //_pawn.transform.position = new Vector3(0f, 0f, -2.7f);
+        //_pawn.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
+
+        // let's try wrapping the texture around a capsule
         GameObject _pawn = new GameObject();
-        _pawn.AddComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/ShroomKing1-preview", typeof(Sprite)) as Sprite;
+        _pawn = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         _pawn.transform.position = new Vector3(0f, 0f, -2.7f);
-        _pawn.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
+        _pawn.transform.Rotate(0, 180, 0);
+        _pawn.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        Renderer rd = _pawn.GetComponent<Renderer>();
+        rd.material.mainTexture = Resources.Load<Texture2D>("Sprites/ShroomKing1");
+        rd.material.color = Color.white;
+
+        // pawn is colliding with shrooms successfully, but not with planet.
+        // one of the two needs a rigidbody
+        Rigidbody rb = _pawn.AddComponent<Rigidbody>();
+        // turn off normal gravity
+        rb.useGravity = false;
+        // use planet gravity attractor
+        _pawn.AddComponent<GravityBody>();
 
     }
 
@@ -157,5 +186,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
 
 }
