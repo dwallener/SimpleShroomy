@@ -40,11 +40,12 @@ public class GameManager : MonoBehaviour
         // for debugging
         _planetIndex = 0;
         _globe = Instantiate(Resources.Load(GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-        RenderSettings.skybox.SetColor("_Tint", GameState._skyboxList[_planetIndex]);
+        //RenderSettings.skybox.SetColor("_Tint", GameState._skyboxList[_planetIndex]);
         _globe.AddComponent<GravityAttractor>();
         _globe.AddComponent<GlobeActions>();
         // sphere collider sucks, can we do a mesh collider?
         //_globe.AddComponent<SphereCollider>();
+        // this almost works! and I think we're well under the 255 triangles limit
         MeshCollider _mc = _globe.AddComponent<MeshCollider>();
         _mc.convex = true;
 
