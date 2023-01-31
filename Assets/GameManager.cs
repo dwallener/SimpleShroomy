@@ -43,7 +43,11 @@ public class GameManager : MonoBehaviour
         RenderSettings.skybox.SetColor("_Tint", GameState._skyboxList[_planetIndex]);
         _globe.AddComponent<GravityAttractor>();
         _globe.AddComponent<GlobeActions>();
-        _globe.AddComponent<SphereCollider>();
+        // sphere collider sucks, can we do a mesh collider?
+        //_globe.AddComponent<SphereCollider>();
+        MeshCollider _mc = _globe.AddComponent<MeshCollider>();
+        _mc.convex = true;
+
         _globe.transform.position = Vector3.zero;
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
         _globe.tag = "Planet";
