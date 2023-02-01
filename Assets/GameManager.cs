@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject _globe;
     public GameObject _pawn; // let's go with Unreal terminology, lol
 
+    public GameObject _audioSource;
     public AudioSource _audio;
 
     // Let's think this through
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
         // sphere collider sucks, can we do a mesh collider?
         //_globe.AddComponent<SphereCollider>();
         // this almost works! and I think we're well under the 255 triangles limit
+        // nope - over the limit
         MeshCollider _mc = _globe.AddComponent<MeshCollider>();
         _mc.convex = true;
 
@@ -58,17 +60,13 @@ public class GameManager : MonoBehaviour
         _globe.tag = "Planet";
 
         // Loading a new planet should come with music, yes?
-        _audio = _globe.AddComponent<AudioSource>();
+        //_audio = _globe.AddComponent<AudioSource>();
+        _audioSource = GameObject.Find("MusicBG");
+        _audio = _audioSource.GetComponent<AudioSource>();
         string _songName = "Music/gypsy" + (GameState._level % 3).ToString();
         _song = Resources.Load(_songName, typeof(AudioClip)) as AudioClip;
         _audio.clip = _song;
         _audio.Play();
-
-        // let's add our player sprite
-        //GameObject _pawn = new GameObject();
-        //_pawn.AddComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/ShroomKing1-preview", typeof(Sprite)) as Sprite;
-        //_pawn.transform.position = new Vector3(0f, 0f, -2.7f);
-        //_pawn.transform.localScale = new Vector3(0.2f, 0.2f, 1f);
 
         // let's try wrapping the texture around a capsule
         GameObject _pawn = new GameObject();
@@ -79,6 +77,8 @@ public class GameManager : MonoBehaviour
         Renderer rd = _pawn.GetComponent<Renderer>();
         rd.material.mainTexture = Resources.Load<Texture2D>("Sprites/ShroomKing1");
         rd.material.color = Color.white;
+        _pawn.AddComponent<PawnActions>();
+        _pawn.name = "Pawn";
 
         // pawn is colliding with shrooms successfully, but not with planet.
         // one of the two needs a rigidbody
@@ -183,6 +183,7 @@ public class GameManager : MonoBehaviour
             _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
             _mushroom[i].AddComponent<BoxCollider>();
             _mushroom[i].transform.parent = _globe.transform;
+            _mushroom[i].name = "Shroomie";
         }
 
     }
