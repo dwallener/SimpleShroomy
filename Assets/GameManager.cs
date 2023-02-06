@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     // for the Canvas objects
     public GameObject _curtain; // for fadeouts
     public GameObject _message;
+    public TextMeshProUGUI _messageText;
     public GameObject _score;
     public GameObject _goal;
     public GameObject _level;
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
         _curtain = GameObject.Find("curtainBlack");
 
         _message = GameObject.Find("message");
+        _messageText = _message.GetComponent<TextMeshProUGUI>();
+
         _score = GameObject.Find("score");
         _goal = GameObject.Find("goal");
         _level = GameObject.Find("level");
@@ -90,28 +93,62 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called before the first frame update
+    /// </summary>
     void Start()
     {
         // make the planet!
         NewPlanet(GameState._level);
         // fill in the HUD!
         _message.GetComponent<TextMeshProUGUI>().text = "Collect Shroomies!";
+        _messageText.text = "Collect Shroomies!";
+
         _score.GetComponent<TextMeshProUGUI>().text = "Score: " + 0.ToString() + " of ";
         _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level%5].ToString();
         _level.GetComponent<TextMeshProUGUI>().text = "LEVEL " + GameState._level.ToString();
 
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
     void Update()
     {
+
         // this is just to debug scene management
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameState._level++;
             Debug.Log("Level: " + GameState._level);
             StartCoroutine(LoadNextScene());
+        }
+
+        // get level end conditions
+        string _levelType = GameState._levelType[GameState._level % 6];
+        if (_levelType == "Collection")
+        {
+            _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level]);
+        }
+        if (_levelType == "Collection TT")
+        {
+
+        }
+        if (_levelType == "Find")
+        {
+
+        }
+        if (_levelType == "Find TT")
+        {
+
+        }
+        if (_levelType == "Clearcut")
+        {
+
+        }
+        if (_levelType == "Clearcut TT")
+        {
+
         }
 
     }

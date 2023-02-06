@@ -76,4 +76,14 @@ public static class GameState
         "Music/gypsy3"
     };
 
+    public static string[] _levelType { get; set; } = new[]
+    {
+        "Collection",
+        "Collection TT",
+        "Find",
+        "Find TT",
+        "Clearcut",
+        "Clearcut TT"
+    };
+
 }
