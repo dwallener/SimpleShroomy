@@ -11,9 +11,19 @@ public static class GameState
     public static int _level { get; set; } = 0;
 
     // collection targets for each level
+    /// <summary>
+    /// Collection targets for each level...level DIV 5...this covers 30 levels
+    /// </summary>
     public static int[] _levelGoals { get; set; } = new[] { 5, 10, 15, 20, 25 };
 
-    // assign planets to levels
+    /// <summary>
+    /// Contains the timer lists for levels...level DIV 5...this covers 30 levels
+    /// </summary>
+    public static int[] _levelTimers { get; set; } = new[] { 60, 45, 30, 20, 10 };
+
+    /// <summary>
+    /// Ordered list of planets, but drawn randomly
+    /// </summary>
     public static string[] _prefabList { get; set; } = new[]
     {
         "Prefabs/Planets/Alien/Alien_Design1",
@@ -63,12 +73,18 @@ public static class GameState
         "Prefabs/Planets/Temperate/Temperate_Design5",
     };
 
+    /// <summary>
+    /// Background color for each planet listed above, in the same order
+    /// </summary>
     public static Color[] _skyboxList { get; set; } = new[]
     {
         new Color(0,160,240,0),
         new Color(255,157,113,0)
     };
 
+    /// <summary>
+    /// Not working yet - song list
+    /// </summary>
     public static string[] _songList { get; set; } = new[]
     {
         "Music/gypsy1",
@@ -76,6 +92,9 @@ public static class GameState
         "Music/gypsy3"
     };
 
+    /// <summary>
+    /// Contains the level type...level mod 6
+    /// </summary>
     public static string[] _levelType { get; set; } = new[]
     {
         "Collection",
@@ -85,5 +104,6 @@ public static class GameState
         "Clearcut",
         "Clearcut TT"
     };
+
 
 }

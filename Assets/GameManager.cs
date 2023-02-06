@@ -11,18 +11,40 @@ public class GameManager : MonoBehaviour
 
     // for the Canvas objects
     public GameObject _curtain; // for fadeouts
+
     public GameObject _message;
     public TextMeshProUGUI _messageText;
+
     public GameObject _score;
+    public TextMeshProUGUI _scoreText;
+
     public GameObject _goal;
     public GameObject _level;
 
-
+    // main gameObjects
     public GameObject _globe;
     public GameObject _pawn; // let's go with Unreal terminology, lol
 
+    // Audio thingies
     public GameObject _audioSource;
     public AudioSource _audio;
+
+    // player thingies
+    public int _playerScore = 0;
+
+    /// <summary>
+    /// Constructor singleton
+    /// </summary>
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance is null)
+                Debug.LogError("GameManager is NULL!!!");
+            return _instance;
+        }
+    }
 
     // Let's think this through
     // Player level data and level requirements are persistent-stored in GameState
@@ -31,6 +53,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        _instance = this;
+
         AudioClip _song;
 
         _curtain = GameObject.Find("curtainBlack");
@@ -39,15 +63,18 @@ public class GameManager : MonoBehaviour
         _messageText = _message.GetComponent<TextMeshProUGUI>();
 
         _score = GameObject.Find("score");
+        _scoreText = _score.GetComponent<TextMeshProUGUI>();
+
         _goal = GameObject.Find("goal");
         _level = GameObject.Find("level");
 
         // let's instantiate a planet from the prefab list
         int _planetIndex = Random.Range(0,GameState._prefabList.Length);
         // for debugging
-        _planetIndex = 0;
+        // _planetIndex = 0;
         _globe = Instantiate(Resources.Load(GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 
+        // set up our own gravity
         _globe.AddComponent<GravityAttractor>();
         _globe.AddComponent<GlobeActions>();
 
@@ -98,14 +125,19 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // always reset, early often late, always
+        _playerScore = 0;
+
         // make the planet!
         NewPlanet(GameState._level);
         // fill in the HUD!
         _message.GetComponent<TextMeshProUGUI>().text = "Collect Shroomies!";
         _messageText.text = "Collect Shroomies!";
 
-        _score.GetComponent<TextMeshProUGUI>().text = "Score: " + 0.ToString() + " of ";
-        _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level%5].ToString();
+        //_score.GetComponent<TextMeshProUGUI>().text = "Score: " + 0.ToString() + " of ";
+        _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+
+        _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level / 5].ToString();
         _level.GetComponent<TextMeshProUGUI>().text = "LEVEL " + GameState._level.ToString();
 
     }
@@ -126,31 +158,66 @@ public class GameManager : MonoBehaviour
 
         // get level end conditions
         string _levelType = GameState._levelType[GameState._level % 6];
+
+        // bucket the level types
         if (_levelType == "Collection")
         {
             _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 5])
+            {
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
         }
-        if (_levelType == "Collection TT")
+        else if (_levelType == "Collection TT")
+        {
+            Debug.Log("Started collection TT level!");
+            Debug.Log("Score: " + _playerScore);
+            _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds!",
+                GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            // this needs timer check as well
+            if (_playerScore >= GameState._levelGoals[GameState._level / 5])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
+        }
+        else if (_levelType == "Find")
         {
 
         }
-        if (_levelType == "Find")
-        {
 
-        }
         if (_levelType == "Find TT")
         {
 
         }
+
         if (_levelType == "Clearcut")
         {
 
         }
+
         if (_levelType == "Clearcut TT")
         {
 
         }
 
+
+
+    }
+
+
+    // move to the next level
+    public void AdvanceLevel()
+    {
+        GameState._level++;
+        Debug.Log("Level: " + GameState._level);
+        StartCoroutine(LoadNextScene());
     }
 
     public IEnumerator LoadNextScene()

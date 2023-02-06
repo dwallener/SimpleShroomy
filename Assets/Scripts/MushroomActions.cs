@@ -25,6 +25,8 @@ public class MushroomActions : MonoBehaviour
     {
         if (collision.gameObject.name == "Pawn")
         {
+            // update score
+            GameManager.Instance._playerScore++;
             Debug.Log("Help! I've Fallen And I Can't Get Up!");
             MakeBang();
             Destroy(gameObject);
@@ -39,7 +41,7 @@ public class MushroomActions : MonoBehaviour
             {
                 for (int z = 0; z < _cubesPerAxis; z++)
                 {
-                    Debug.Log("Exploding!");
+                    // confetti time!
                     var _thisgo = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     _thisgo.name = "ExplodingSphere";
                     _thisgo.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
