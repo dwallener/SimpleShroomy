@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     public GameObject _goal;
     public GameObject _level;
 
+    public GameObject _timer;
+    public TextMeshProUGUI _timerText;
+
     // main gameObjects
     public GameObject _globe;
     public GameObject _pawn; // let's go with Unreal terminology, lol
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
 
         AudioClip _song;
 
+        // set up the HUD objects
         _curtain = GameObject.Find("curtainBlack");
 
         _message = GameObject.Find("message");
@@ -67,6 +71,9 @@ public class GameManager : MonoBehaviour
 
         _goal = GameObject.Find("goal");
         _level = GameObject.Find("level");
+
+        _timer = GameObject.Find("timer");
+        _timerText = _timer.GetComponent<TextMeshProUGUI>();
 
         // let's instantiate a planet from the prefab list
         int _planetIndex = Random.Range(0,GameState._prefabList.Length);
@@ -162,9 +169,10 @@ public class GameManager : MonoBehaviour
         // bucket the level types
         if (_levelType == "Collection")
         {
+            
             _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            if (_playerScore >= GameState._levelGoals[GameState._level / 5])
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 _playerScore = 0;
                 AdvanceLevel();
@@ -173,13 +181,11 @@ public class GameManager : MonoBehaviour
         }
         else if (_levelType == "Collection TT")
         {
-            Debug.Log("Started collection TT level!");
-            Debug.Log("Score: " + _playerScore);
             _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds!",
                 GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             // this needs timer check as well
-            if (_playerScore >= GameState._levelGoals[GameState._level / 5])
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -189,30 +195,73 @@ public class GameManager : MonoBehaviour
         }
         else if (_levelType == "Find")
         {
-
+            _messageText.text = string.Format("Find the magic Shroomie!");
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
         }
 
         if (_levelType == "Find TT")
         {
-
+            _messageText.text = string.Format("Find the magic Shroomie in {0} seconds!",
+                GameState._levelTimers[GameState._level / 6]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
         }
 
         if (_levelType == "Clearcut")
         {
-
+            _messageText.text = string.Format("Collect all the shroomies!");
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
         }
 
         if (_levelType == "Clearcut TT")
         {
-
+            _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
+               GameState._levelTimers[GameState._level / 6]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
         }
 
+    }
 
+    /// <summary>
+    /// We'll want to encapsulate some of the gameplay tracking above into here
+    /// </summary>
+    public void PlayLevel()
+    {
 
     }
 
 
     // move to the next level
+    /// <summary>
+    /// One place to advance to the next level
+    /// </summary>
     public void AdvanceLevel()
     {
         GameState._level++;
@@ -220,6 +269,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadNextScene());
     }
 
+    /// <summary>
+    /// Manage scene transistions
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator LoadNextScene()
     {
         // wait for fade
@@ -236,7 +289,11 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-
+    /// <summary>
+    /// Simple fade out for screen transitions
+    /// </summary>
+    /// <param name="_fadeSpeed"></param>
+    /// <returns></returns>
     public IEnumerator FadeOut(int _fadeSpeed)
     {
         Color _fadeColor = _curtain.GetComponent<Image>().color;
@@ -254,6 +311,10 @@ public class GameManager : MonoBehaviour
         //yield return new WaitForEndOfFrame();
     }
 
+    /// <summary>
+    /// Entry point for creating new planet
+    /// </summary>
+    /// <param name="_level"></param>
     public void NewPlanet(int _level)
     {
         Debug.Log("New Planet");
@@ -261,6 +322,9 @@ public class GameManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Populate the new planet with baddies and whatnot
+    /// </summary>
     public void CreatePlanet()
     {
 
@@ -291,6 +355,5 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
 
 }
