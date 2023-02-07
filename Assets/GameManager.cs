@@ -82,10 +82,10 @@ public class GameManager : MonoBehaviour
         _timerText = _timer.GetComponent<TextMeshProUGUI>();
 
         // let's instantiate a planet from the prefab list
-        int _planetIndex = Random.Range(0,GameState._prefabList.Length);
-        // for debugging
-        // _planetIndex = 0;
-        _globe = Instantiate(Resources.Load(GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+        int _planetIndex = Random.Range(0, GameState._prefabList.Length);
+        _globe = Instantiate(Resources.Load(
+            GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity)
+            as GameObject;
 
         // set up our own gravity
         _globe.AddComponent<GravityAttractor>();
@@ -96,11 +96,15 @@ public class GameManager : MonoBehaviour
         // this almost works! and I think we're well under the 255 triangles limit
         // nope - over the limit
         MeshCollider _mc = _globe.AddComponent<MeshCollider>();
-        _mc.convex = true;
+        _mc.convex = false;
 
         _globe.transform.position = Vector3.zero;
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
         _globe.tag = "Planet";
+
+        // see what happens if particles belong to globe
+        // ok if we can't get the colliders to work, change what happens on different terrain
+
 
         // Loading a new planet should come with music, yes?
         //_audio = _globe.AddComponent<AudioSource>();
@@ -125,13 +129,39 @@ public class GameManager : MonoBehaviour
 
         // pawn is colliding with shrooms successfully, but not with planet.
         // one of the two needs a rigidbody
-        Rigidbody rb = _pawn.AddComponent<Rigidbody>();
+        Rigidbody _rb = _pawn.AddComponent<Rigidbody>();
+        _rb.mass = 100f;
         // turn off normal gravity
-        rb.useGravity = false;
+        _rb.useGravity = false;
+        _rb.centerOfMass = new Vector3(0f, 0f, -0.5f);
+
         // use planet gravity attractor
         _pawn.AddComponent<GravityBody>();
+        
+        // ok if we can't get the colliders to work, change what happens on different terrain
+        ParticleSystem _ps = _pawn.AddComponent<ParticleSystem>();
+        Material _dustMat = Resources.Load<Material>("brownDesert");
+        _pawn.GetComponent<ParticleSystemRenderer>().material = _dustMat;
+        var _emission = _ps.emission;
+        _emission.enabled = true;
+        var _main = _ps.main;
+        _main.simulationSpace = ParticleSystemSimulationSpace.Local;
+        _main.startLifetime = new ParticleSystem.MinMaxCurve(0.4f, 1f);
+        _main.startSpeed = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
+        _main.startSizeX = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
+        _main.startSizeY = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
+        _main.startSizeZ = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
+        var _particleVelocity = _ps.velocityOverLifetime;
+        _particleVelocity.x = 5f;
+        _particleVelocity.z = -5f;
+        _particleVelocity.y = 5f;
+        var _particleColor = _ps.colorOverLifetime;
+        _particleColor.color = new ParticleSystem.MinMaxGradient(Color.red, Color.green);
+        var _particles = new ParticleSystem.Particle();
+        _particles.position = new Vector3(0f, -2f, -2.7f);
 
     }
+
 
     /// <summary>
     /// Start is called before the first frame update
@@ -143,6 +173,7 @@ public class GameManager : MonoBehaviour
 
         // make the planet!
         NewPlanet(GameState._level);
+
         // fill in the HUD!
         _message.GetComponent<TextMeshProUGUI>().text = "Collect Shroomies!";
         _messageText.text = "Collect Shroomies!";
@@ -190,7 +221,7 @@ public class GameManager : MonoBehaviour
         // bucket the level types
         if (_levelType == "Collection")
         {
-            
+
             _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
@@ -205,7 +236,7 @@ public class GameManager : MonoBehaviour
             _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds!",
                 GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDownf));
+            _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
             // this needs timer check as well
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
@@ -233,7 +264,7 @@ public class GameManager : MonoBehaviour
             _messageText.text = string.Format("Find the magic Shroomie in {0} seconds!",
                 GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDownf));
+            _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
@@ -261,7 +292,7 @@ public class GameManager : MonoBehaviour
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
                GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDownf));
+            _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?

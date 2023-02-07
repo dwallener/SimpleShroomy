@@ -83,7 +83,8 @@ public static class GameState
         new Color(0, 183, 253, 0),
         new Color(0, 165, 240, 0),
         new Color(0, 165, 240, 0),
-        new Color(0, 182, 253, 0)
+        new Color(0, 182, 253, 0),
+        new Color(0, 176, 252, 0)
     };
 
     /// <summary>
