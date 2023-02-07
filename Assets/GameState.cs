@@ -79,7 +79,11 @@ public static class GameState
     public static Color[] _skyboxList { get; set; } = new[]
     {
         new Color(0,160,240,0),
-        new Color(255,157,113,0)
+        new Color(255,157,113,0),
+        new Color(0, 183, 253, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 182, 253, 0)
     };
 
     /// <summary>

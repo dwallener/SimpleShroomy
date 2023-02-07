@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject _timer;
     public TextMeshProUGUI _timerText;
+    public GameObject _panel;
 
     // main gameObjects
     public GameObject _globe;
@@ -34,6 +35,10 @@ public class GameManager : MonoBehaviour
 
     // player thingies
     public int _playerScore = 0;
+
+    // timer thingies
+    public int _countDown = 0;
+    public float _countDownf = 0f;
 
     /// <summary>
     /// Constructor singleton
@@ -73,6 +78,7 @@ public class GameManager : MonoBehaviour
         _level = GameObject.Find("level");
 
         _timer = GameObject.Find("timer");
+        _panel = GameObject.Find("panel");
         _timerText = _timer.GetComponent<TextMeshProUGUI>();
 
         // let's instantiate a planet from the prefab list
@@ -147,6 +153,19 @@ public class GameManager : MonoBehaviour
         _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level / 5].ToString();
         _level.GetComponent<TextMeshProUGUI>().text = "LEVEL " + GameState._level.ToString();
 
+        // set the timer
+        string _levelType = GameState._levelType[GameState._level % 6];
+        if (_levelType.Contains("TT"))
+        {
+            _countDown = GameState._levelTimers[GameState._level / 5];
+            _countDownf = (float)_countDown;
+            _timer.SetActive(true);
+        }
+        else
+        {
+            _timer.SetActive(false);
+        }
+
     }
 
     /// <summary>
@@ -154,6 +173,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // update the timer
+        _countDownf -= Time.deltaTime;
 
         // this is just to debug scene management
         if (Input.GetKeyDown(KeyCode.Space))
@@ -170,7 +191,7 @@ public class GameManager : MonoBehaviour
         if (_levelType == "Collection")
         {
             
-            _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level]);
+            _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
@@ -184,6 +205,7 @@ public class GameManager : MonoBehaviour
             _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds!",
                 GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDownf));
             // this needs timer check as well
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
@@ -211,6 +233,7 @@ public class GameManager : MonoBehaviour
             _messageText.text = string.Format("Find the magic Shroomie in {0} seconds!",
                 GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDownf));
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
@@ -238,6 +261,7 @@ public class GameManager : MonoBehaviour
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
                GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDown));
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
