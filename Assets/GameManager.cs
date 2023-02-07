@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     // main gameObjects
     public GameObject _globe;
     public GameObject _pawn; // let's go with Unreal terminology, lol
+    public GameObject _pawnExhaust; // the thing to spew from
 
     // Audio thingies
     public GameObject _audioSource;
@@ -61,8 +62,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        
         _instance = this;
-
+        
         AudioClip _song;
 
         // set up the HUD objects
@@ -137,20 +139,24 @@ public class GameManager : MonoBehaviour
 
         // use planet gravity attractor
         _pawn.AddComponent<GravityBody>();
-        
+
         // ok if we can't get the colliders to work, change what happens on different terrain
-        ParticleSystem _ps = _pawn.AddComponent<ParticleSystem>();
+        // let's do this on an empty gameObject
+        _pawnExhaust = new GameObject("Exhaust");
+        _pawnExhaust.transform.position = new Vector3(0f, -0.1f, -2.7f);
+        
+        ParticleSystem _ps = _pawnExhaust.AddComponent<ParticleSystem>();
         Material _dustMat = Resources.Load<Material>("brownDesert");
-        _pawn.GetComponent<ParticleSystemRenderer>().material = _dustMat;
+        _pawnExhaust.GetComponent<ParticleSystemRenderer>().material = _dustMat;
         var _emission = _ps.emission;
         _emission.enabled = true;
         var _main = _ps.main;
         _main.simulationSpace = ParticleSystemSimulationSpace.Local;
         _main.startLifetime = new ParticleSystem.MinMaxCurve(0.4f, 1f);
-        _main.startSpeed = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
-        _main.startSizeX = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
-        _main.startSizeY = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
-        _main.startSizeZ = new ParticleSystem.MinMaxCurve(0.2f, 0.3f);
+        _main.startSpeed = new ParticleSystem.MinMaxCurve(0.2f, 0.5f);
+        _main.startSizeX = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
+        _main.startSizeY = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
+        _main.startSizeZ = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
         var _particleVelocity = _ps.velocityOverLifetime;
         _particleVelocity.x = 5f;
         _particleVelocity.z = -5f;
@@ -159,6 +165,9 @@ public class GameManager : MonoBehaviour
         _particleColor.color = new ParticleSystem.MinMaxGradient(Color.red, Color.green);
         var _particles = new ParticleSystem.Particle();
         _particles.position = new Vector3(0f, -2f, -2.7f);
+        var _shape = _ps.shape;
+        _shape.enabled = true;
+        _shape.shapeType = ParticleSystemShapeType.Cone;
 
     }
 
@@ -170,7 +179,7 @@ public class GameManager : MonoBehaviour
     {
         // always reset, early often late, always
         _playerScore = 0;
-
+      
         // make the planet!
         NewPlanet(GameState._level);
 
