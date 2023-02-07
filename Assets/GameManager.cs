@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         string _levelType = GameState._levelType[GameState._level % 6];
         if (_levelType.Contains("TT"))
         {
-            _countDown = GameState._levelTimers[GameState._level / 5];
+            _countDown = GameState._levelTimers[GameState._level / 6];
             _countDownf = (float)_countDown;
             _timer.SetActive(true);
         }
@@ -261,7 +261,7 @@ public class GameManager : MonoBehaviour
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
                GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDown));
+            _timerText.text = string.Format("{0}s", Mathf.RoundToInt(_countDownf));
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
