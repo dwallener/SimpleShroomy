@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // hold player progression data for scene management
-public static class GameState
+public class GameState
 {
     // TODO abstract this a bit more, to simplify planet loading
 

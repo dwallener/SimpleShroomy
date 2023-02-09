@@ -62,9 +62,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
+        if (PlayerPrefs.HasKey("Level"))
+        {
+            GameState._level = PlayerPrefs.GetInt("Level");
+            Debug.LogFormat("Prefs exist, Level {0}", GameState._level);
+        }
+   
         _instance = this;
-        
+
         AudioClip _song;
 
         // set up the HUD objects
@@ -329,6 +335,7 @@ public class GameManager : MonoBehaviour
     public void AdvanceLevel()
     {
         GameState._level++;
+        PlayerPrefs.SetInt("Level", GameState._level);
         Debug.Log("Level: " + GameState._level);
         StartCoroutine(LoadNextScene());
     }
