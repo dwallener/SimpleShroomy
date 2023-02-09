@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        // manage player prefs
         if (PlayerPrefs.HasKey("Level"))
         {
             GameState._level = PlayerPrefs.GetInt("Level");
