@@ -78,13 +78,58 @@ public class GameState
     /// </summary>
     public static Color[] _skyboxList { get; set; } = new[]
     {
+        // Alien
         new Color(0,160,240,0),
         new Color(255,157,113,0),
         new Color(0, 183, 253, 0),
         new Color(0, 165, 240, 0),
         new Color(0, 165, 240, 0),
         new Color(0, 182, 253, 0),
-        new Color(0, 176, 252, 0)
+        new Color(0, 176, 252, 0),
+        new Color(35, 151, 247, 0), // option 41 168 109
+        new Color(0, 165, 240, 0), // REPLACE
+        new Color(0, 165, 240, 0), // REPLACE
+
+        // Earth
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+
+        // Tundra
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+
+        // Desert
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 181, 215, 0), //
+        new Color(0, 165, 240, 0),
+
+        // Frozen
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+
+        // Temperate
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0),
+        new Color(0, 165, 240, 0)
+
     };
 
     /// <summary>

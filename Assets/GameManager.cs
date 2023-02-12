@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
         _globe = Instantiate(Resources.Load(
             GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity)
             as GameObject;
+        Debug.LogFormat("Planet: {0}", GameState._prefabList[_planetIndex]);
+        Camera.main.backgroundColor = GameState._skyboxList[_planetIndex];
 
         // set up our own gravity
         _globe.AddComponent<GravityAttractor>();
