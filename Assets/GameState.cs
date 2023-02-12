@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// hold player progression data for scene management
+
+/// <summary>
+/// Basically all the static ish data needed to manage the game
+/// </summary>
 public class GameState
 {
     // TODO abstract this a bit more, to simplify planet loading
 
-    // player level 
+    /// <summary>
+    /// Player level, as important a thing as their is
+    /// </summary>
     public static int _level { get; set; } = 0;
 
     // collection targets for each level
@@ -111,10 +116,10 @@ public class GameState
 
         // Desert
         new Color(105, 162, 244, 0),    // option 33 182 123
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 181, 215, 0),      //
-        new Color(0, 165, 240, 0),
+        new Color(145, 139, 192, 0),    // option 0 187 223, 3 166 144
+        new Color(133, 124, 231, 0),    // option 148 151 236, 77 177 130, 0 161 107
+        new Color(0, 181, 213, 0),      //
+        new Color(0, 194, 252, 0),      //
 
         // Frozen
         new Color(0, 165, 240, 0),

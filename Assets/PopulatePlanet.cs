@@ -5,18 +5,26 @@ using UnityEngine;
 public class PopulatePlanet : MonoBehaviour
 {
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start - not currently used
+    /// </summary>
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Update - not currently used
+    /// </summary>
     void Update()
     {
         
     }
 
+    /// <summary>
+    /// With streamlined scene management this is currently redundant
+    /// </summary>
+    /// <param name="_level"></param>
     public void NewPlanet(int _level)
     {
         Debug.Log("New Planet");
@@ -32,6 +40,9 @@ public class PopulatePlanet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The helper method for NewPlanet() - currently unused for the same reasons
+    /// </summary>
     public void Planet01()
     {
 
