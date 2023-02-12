@@ -86,9 +86,9 @@ public class GameState
         new Color(0, 165, 240, 0),
         new Color(0, 182, 253, 0),
         new Color(0, 176, 252, 0),
-        new Color(35, 151, 247, 0), // option 41 168 109
-        new Color(0, 165, 240, 0), // REPLACE
-        new Color(0, 165, 240, 0), // REPLACE
+        new Color(35, 151, 247, 0),     // option 41 168 109
+        new Color(0, 90, 22, 0),        // option 94 123 223
+        new Color(138, 175, 65, 0),     // option 0 172 252
 
         // Earth
         new Color(0, 165, 240, 0),
@@ -110,10 +110,10 @@ public class GameState
         new Color(0, 165, 240, 0),
 
         // Desert
+        new Color(105, 162, 244, 0),    // option 33 182 123
         new Color(0, 165, 240, 0),
         new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 181, 215, 0), //
+        new Color(0, 181, 215, 0),      //
         new Color(0, 165, 240, 0),
 
         // Frozen

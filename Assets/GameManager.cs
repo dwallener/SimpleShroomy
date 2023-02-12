@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
         // see what happens if particles belong to globe
         // ok if we can't get the colliders to work, change what happens on different terrain
 
-
         // Loading a new planet should come with music, yes?
         //_audio = _globe.AddComponent<AudioSource>();
         _audioSource = GameObject.Find("MusicBG");
