@@ -96,8 +96,8 @@ public class GameState
         new Color(138, 175, 65, 0),     // option 0 172 252
 
         // Earth
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
+        new Color(65, 71, 86, 0),       //
+        new Color(0, 91, 157, 0),       // option 52 74 83
         new Color(0, 165, 240, 0),
         new Color(0, 165, 240, 0),
         new Color(0, 165, 240, 0),

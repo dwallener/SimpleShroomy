@@ -147,41 +147,6 @@ public class GameManager : MonoBehaviour
         // use planet gravity attractor
         _pawn.AddComponent<GravityBody>();
 
-        // particle system for movement
-        _pawnExhaust = new GameObject("Exhaust");
-        _pawnExhaust.transform.position = new Vector3(0f, -0.1f, -2.7f);
-
-        ParticleSystem _ps = _pawnExhaust.AddComponent<ParticleSystem>();
-        var _emission = _ps.emission;
-        var _main = _ps.main;
-        var _particleVelocity = _ps.velocityOverLifetime;
-        var _particleColor = _ps.colorOverLifetime;
-        var _particles = new ParticleSystem.Particle();
-        var _shape = _ps.shape;
-
-        Material _dustMat = Resources.Load<Material>("brownDesert");
-        _pawnExhaust.GetComponent<ParticleSystemRenderer>().material = _dustMat;
-
-        _emission.enabled = true;
-
-        _main.simulationSpace = ParticleSystemSimulationSpace.Local;
-        _main.startLifetime = new ParticleSystem.MinMaxCurve(0.4f, 1f);
-        _main.startSpeed = new ParticleSystem.MinMaxCurve(0.2f, 0.5f);
-        _main.startSizeX = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
-        _main.startSizeY = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
-        _main.startSizeZ = new ParticleSystem.MinMaxCurve(0.05f, 0.1f);
-
-        _particleVelocity.x = 5f;
-        _particleVelocity.z = -5f;
-        _particleVelocity.y = 5f;
-
-        _particleColor.color = new ParticleSystem.MinMaxGradient(Color.red, Color.green);
-
-        _particles.position = new Vector3(0f, -2f, -2.7f);
-
-        _shape.enabled = true;
-        _shape.shapeType = ParticleSystemShapeType.Cone;
-
     }
 
 
