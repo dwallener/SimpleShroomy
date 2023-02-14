@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         // PLANET
 
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
-        int _planetIndex = Random.Range(0, 10);
+        int _planetIndex = Random.Range(0, 40);
 
         _globe = Instantiate(Resources.Load(
             GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity)
