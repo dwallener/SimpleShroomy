@@ -84,56 +84,56 @@ public class GameState
     public static Color[] _skyboxList { get; set; } = new[]
     {
         // Alien
-        new Color(0,160,240,0),
-        new Color(255,157,113,0),
-        new Color(0, 183, 253, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 182, 253, 0),
-        new Color(0, 176, 252, 0),
-        new Color(35, 151, 247, 0),     // option 41 168 109
-        new Color(0, 90, 22, 0),        // option 94 123 223
-        new Color(138, 175, 65, 0),     // option 0 172 252
+        new Color(0, 160f/255f, 240f/255f, 1),
+        new Color(255f/255f, 157f/255f, 113f/255f, 1),
+        new Color(0f/255f, 183f/255f, 253f/255f, 1),
+        new Color(0f/255f, 165f/255f, 240f/255f, 1),
+        new Color(0f/255f, 165f/255f, 240f/255f, 1),
+        new Color(0f/255f, 182f/255f, 253f/255f, 1),
+        new Color(0f/255f, 176f/255f, 252f/255f, 1),
+        new Color(35f/255f, 151f/255f, 247f/255f, 1),     // option 41 168 109
+        new Color(0f/255f, 90f/255f, 22f/255f, 1),        // option 94 123 223
+        new Color(138f/255f, 175f/255f, 65f/255f, 1),     // option 0 172 252
 
         // Earth
-        new Color(65, 71, 86, 0),       //
-        new Color(0, 91, 157, 0),       // option 52 74 83
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
+        new Color(65f/255f, 71f/255f, 86f/255f, 0),       //
+        new Color(0f/255f, 91f/255f, 157f/255f, 0),       // option 52 74 83
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
 
         // Tundra
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
 
         // Desert
-        new Color(105, 162, 244, 0),    // option 33 182 123
-        new Color(145, 139, 192, 0),    // option 0 187 223, 3 166 144
-        new Color(133, 124, 231, 0),    // option 148 151 236, 77 177 130, 0 161 107
-        new Color(0, 181, 213, 0),      //
-        new Color(0, 194, 252, 0),      //
+        new Color(105f/255f, 162f/255f, 244f/255f, 0),    // option 33 182 123
+        new Color(145f/255f, 139f/255f, 192f/255f, 0),    // option 0 187 223, 3 166 144
+        new Color(133f/255f, 124f/255f, 231f/255f, 0),    // option 148 151 236, 77 177 130, 0 161 107
+        new Color(0f/255f, 181f/255f, 213f/255f, 0),      //
+        new Color(0f/255f, 194f/255f, 252f/255f, 0),      //
 
         // Frozen
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
 
         // Temperate
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0),
-        new Color(0, 165, 240, 0)
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0),
+        new Color(0f/255f, 165f/255f, 240f/255f, 0)
 
     };
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,6 +42,11 @@ public class GameManager : MonoBehaviour
     public int _countDown = 0;
     public float _countDownf = 0f;
 
+    // bookkeeping thingies
+    //public Quaternion _spinDir;
+    public Vector3 _spinDir = Vector3.zero;
+    public float _spinAngle = 0f;
+
     /// <summary>
     /// Constructor singleton
     /// </summary>
@@ -71,8 +77,6 @@ public class GameManager : MonoBehaviour
    
         _instance = this;
 
-        AudioClip _song;
-
         // set up the HUD objects
         _curtain = GameObject.Find("curtainBlack");
 
@@ -89,63 +93,70 @@ public class GameManager : MonoBehaviour
         _panel = GameObject.Find("panel");
         _timerText = _timer.GetComponent<TextMeshProUGUI>();
 
-        // let's instantiate a planet from the prefab list
-        int _planetIndex = Random.Range(0, GameState._prefabList.Length);
+        // PLANET
+
+        //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
+        int _planetIndex = Random.Range(0, 10);
+
         _globe = Instantiate(Resources.Load(
             GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity)
             as GameObject;
         Debug.LogFormat("Planet: {0}", GameState._prefabList[_planetIndex]);
+        Camera.main.clearFlags = CameraClearFlags.SolidColor;
         Camera.main.backgroundColor = GameState._skyboxList[_planetIndex];
 
         // set up our own gravity
         _globe.AddComponent<GravityAttractor>();
         _globe.AddComponent<GlobeActions>();
+        _globe.AddComponent<Rigidbody>();
+        _globe.GetComponent<Rigidbody>().useGravity = false;
+        _globe.GetComponent<Rigidbody>().isKinematic = true;
 
         // sphere collider sucks, can we do a mesh collider?
         //_globe.AddComponent<SphereCollider>();
         // this almost works! and I think we're well under the 255 triangles limit
         // nope - over the limit
         MeshCollider _mc = _globe.AddComponent<MeshCollider>();
-        _mc.convex = false;
+        _mc.convex = true;
 
         _globe.transform.position = Vector3.zero;
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
         _globe.tag = "Planet";
 
-        // see what happens if particles belong to globe
-        // ok if we can't get the colliders to work, change what happens on different terrain
+        //PlayBackgroundMusic();
 
-        // Loading a new planet should come with music, yes?
-        //_audio = _globe.AddComponent<AudioSource>();
-        _audioSource = GameObject.Find("MusicBG");
-        _audio = _audioSource.GetComponent<AudioSource>();
-        string _songName = "Music/gypsy" + (GameState._level % 3).ToString();
-        _song = Resources.Load(_songName, typeof(AudioClip)) as AudioClip;
-        _audio.clip = _song;
-        _audio.Play();
-
-        // let's try wrapping the texture around a capsule
+        // PAWN
         GameObject _pawn = new GameObject();
-        _pawn = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        _pawn.transform.position = new Vector3(0f, 0f, -2.7f);
+
+        // let's try wrapping a texture around the capsule
+        //_pawn = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+
+        // load a model prefab - made a variant with the skin etc
+        _pawn = Instantiate(Resources.Load<GameObject>("Prefabs/Pawns/Pawn"), new Vector3(0f, 0f, -2.5f), Quaternion.identity);
+
+        // set up location, physics, blah blah blah
+        //_pawn.transform.position = new Vector3(0f, 0f, -2.7f);
         _pawn.transform.Rotate(0, 180, 0);
-        _pawn.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        Renderer rd = _pawn.GetComponent<Renderer>();
-        rd.material.mainTexture = Resources.Load<Texture2D>("Sprites/ShroomKing1");
-        rd.material.color = Color.white;
+        _pawn.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+        BoxCollider _bc = _pawn.AddComponent<BoxCollider>();
+        // tallify the box in Z - tweak this again in #scene
+        _bc.size = new Vector3(3f, 3f, 3f);
+
+        // give it it's own intelligence
         _pawn.AddComponent<PawnActions>();
         _pawn.name = "Pawn";
 
+        // use planet gravity attractor
+        _pawn.AddComponent<GravityBody>();
+
         // pawn is colliding with shrooms successfully, but not with planet.
-        // one of the two needs a rigidbody
-        Rigidbody _rb = _pawn.AddComponent<Rigidbody>();
-        _rb.mass = 100f;
+        Rigidbody _rb = _pawn.GetComponent<Rigidbody>();
+
+        _rb.mass = 10000f;
         // turn off normal gravity
         _rb.useGravity = false;
         _rb.centerOfMass = new Vector3(0f, 0f, -0.5f);
-
-        // use planet gravity attractor
-        _pawn.AddComponent<GravityBody>();
 
     }
 
@@ -193,7 +204,7 @@ public class GameManager : MonoBehaviour
     {
         // update the timer
         _countDownf -= Time.deltaTime;
-
+        
         // this is just to debug scene management
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -291,7 +302,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    /// <summary>
+    /// <summary>7
     /// We'll want to encapsulate some of the gameplay tracking above into here
     /// </summary>
     public void PlayLevel()
@@ -361,9 +372,39 @@ public class GameManager : MonoBehaviour
     public void NewPlanet(int _level)
     {
         Debug.Log("New Planet");
-        CreatePlanet();
+        //AddColliders();
+        CreatePlanet(); 
     }
 
+    /// <summary>
+    /// Add box colliders to topographical features
+    /// </summary>
+    public void AddColliders()
+    {
+        // walk the mesh, add box collider wherever radius is bigger than some number
+        Mesh _mesh = _globe.GetComponent<MeshFilter>().mesh;
+        foreach (Vector3 _vertex in _mesh.vertices)
+        {
+            // dump the radius
+            var _radius = Vector3.Distance(_vertex, Vector3.zero);
+            Debug.LogFormat("Radius: {0} @ {1}, {2}, {3}", _radius, _vertex.x, _vertex.y, _vertex.z);
+            if (_radius > 0.46)
+            {
+                Debug.Log("Adding box collider");
+                var _bc = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                _bc.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                _bc.transform.SetParent(_globe.transform);
+                _bc.transform.position = _vertex * 5f;
+                //StartCoroutine(ResetPosition(_bc, _vertex));
+            }
+        }
+    }
+
+    private IEnumerator ResetPosition(GameObject _go, Vector3 _v)
+    {
+        yield return new WaitForSeconds(Time.deltaTime);
+        _go.transform.position = _v;
+    }
 
     /// <summary>
     /// Populate the new planet with baddies and whatnot
@@ -399,4 +440,22 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Let's share some tunes!
+    /// </summary>
+    public void PlayBackgroundMusic()
+    {
+
+        AudioClip _song;
+
+        // Loading a new planet should come with music, yes?
+        //_audio = _globe.AddComponent<AudioSource>();
+        _audioSource = GameObject.Find("MusicBG");
+        _audio = _audioSource.GetComponent<AudioSource>();
+        string _songName = "Music/gypsy" + (GameState._level % 3).ToString();
+        _song = Resources.Load(_songName, typeof(AudioClip)) as AudioClip;
+        _audio.clip = _song;
+        _audio.Play();
+
+    }
 }

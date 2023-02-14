@@ -42,6 +42,9 @@ public class GlobeActions : MonoBehaviour
         transform.Rotate(Camera.main.transform.up * speed.x * rotationSpeed, Space.World);
         transform.Rotate(Camera.main.transform.right * speed.y * rotationSpeed, Space.World);
 
+        GameManager.Instance._spinDir = new Vector3 (-Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0);
+        GameManager.Instance._spinAngle = Mathf.Atan2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
+
     }
 
     private void OnMouseDown()

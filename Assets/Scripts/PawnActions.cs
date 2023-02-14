@@ -13,6 +13,11 @@ public class PawnActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(0f, 0f, -2.7f);        
+        // this shouldn't be needed and will probably fuck with physics
+        transform.position = new Vector3(0f, 0f, -2.5f);
+        //transform.forward = GameManager.Instance._spinDir;
+        //Vector3 _rotate = new Vector3(0f, 0f, GameManager.Instance._spinAngle);
+        //transform.rotation = Quaternion.LookRotation(GameManager.Instance._spinDir);
     }
+
 }
