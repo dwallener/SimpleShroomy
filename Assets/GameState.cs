@@ -17,14 +17,14 @@ public class GameState
 
     // collection targets for each level
     /// <summary>
-    /// Collection targets for each level...level DIV 5...this covers 30 levels
+    /// Collection targets for each level...level DIV 5...this covers 40 levels
     /// </summary>
-    public static int[] _levelGoals { get; set; } = new[] { 5, 10, 15, 20, 25 };
+    public static int[] _levelGoals { get; set; } = new[] { 5, 10, 15, 20, 25, 30, 35 };
 
     /// <summary>
-    /// Contains the timer lists for levels...level DIV 5...this covers 30 levels
+    /// Contains the timer lists for levels...level DIV 5...this covers 40 levels
     /// </summary>
-    public static int[] _levelTimers { get; set; } = new[] { 60, 45, 30, 20, 10 };
+    public static int[] _levelTimers { get; set; } = new[] { 60, 45, 30, 25, 20, 15, 10 };
 
     /// <summary>
     /// Ordered list of planets, but drawn randomly
@@ -42,16 +42,16 @@ public class GameState
         "Prefabs/Planets/Alien/Alien_Design9",
         "Prefabs/Planets/Alien/Alien_Design10",
 
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design1",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design2",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design3",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design4",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design5",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design6",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design7",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design8",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design9",
-        "Prefabs/Planets/Earth-Like/Earth-Like_Design10",
+        "Prefabs/Planets/Earthish/Earth-Like_Design1",
+        "Prefabs/Planets/Earthish/Earth-Like_Design2",
+        "Prefabs/Planets/Earthish/Earth-Like_Design3",
+        "Prefabs/Planets/Earthish/Earth-Like_Design4",
+        "Prefabs/Planets/Earthish/Earth-Like_Design5",
+        "Prefabs/Planets/Earthish/Earth-Like_Design6",
+        "Prefabs/Planets/Earthish/Earth-Like_Design7",
+        "Prefabs/Planets/Earthish/Earth-Like_Design8",
+        "Prefabs/Planets/Earthish/Earth-Like_Design9",
+        "Prefabs/Planets/Earthish/Earth-Like_Design10",
 
         "Prefabs/Planets/Tundra/Tundra_Design1",
         "Prefabs/Planets/Tundra/Tundra_Design2",
@@ -76,6 +76,53 @@ public class GameState
         "Prefabs/Planets/Temperate/Temperate_Design3",
         "Prefabs/Planets/Temperate/Temperate_Design4",
         "Prefabs/Planets/Temperate/Temperate_Design5",
+
+        "Prefabs/Planets/AlienLava/Alien_Design1",
+        "Prefabs/Planets/AlienLava/Alien_Design2",
+        "Prefabs/Planets/AlienLava/Alien_Design3",
+        "Prefabs/Planets/AlienLava/Alien_Design4",
+        "Prefabs/Planets/AlienLava/Alien_Design5",
+        "Prefabs/Planets/AlienLava/Alien_Design6",
+        "Prefabs/Planets/AlienLava/Alien_Design7",
+        "Prefabs/Planets/AlienLava/Alien_Design8",
+        "Prefabs/Planets/AlienLava/Alien_Design9",
+        "Prefabs/Planets/AlienLava/Alien_Design10",
+
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design1",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design2",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design3",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design4",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design5",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design6",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design7",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design8",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design9",
+        "Prefabs/Planets/EarthishLava/Earth-Like_Design10",
+
+        "Prefabs/Planets/TundraLava/Tundra_Design1",
+        "Prefabs/Planets/TundraLava/Tundra_Design2",
+        "Prefabs/Planets/TundraLava/Tundra_Design3",
+        "Prefabs/Planets/TundraLava/Tundra_Design4",
+        "Prefabs/Planets/TundraLava/Tundra_Design5",
+
+        "Prefabs/Planets/DesertLava/Desert_Design1",
+        "Prefabs/Planets/DesertLava/Desert_Design2",
+        "Prefabs/Planets/DesertLava/Desert_Design3",
+        "Prefabs/Planets/DesertLava/Desert_Design4",
+        "Prefabs/Planets/DesertLava/Desert_Design5",
+
+        "Prefabs/Planets/FrozenLava/Frozen_Design1",
+        "Prefabs/Planets/FrozenLava/Frozen_Design2",
+        "Prefabs/Planets/FrozenLava/Frozen_Design3",
+        "Prefabs/Planets/FrozenLava/Frozen_Design4",
+        "Prefabs/Planets/FrozenLava/Frozen_Design5",
+
+        "Prefabs/Planets/TemperateLava/Temperate_Design1",
+        "Prefabs/Planets/TemperateLava/Temperate_Design2",
+        "Prefabs/Planets/TemperateLava/Temperate_Design3",
+        "Prefabs/Planets/TemperateLava/Temperate_Design4",
+        "Prefabs/Planets/TemperateLava/Temperate_Design5",
+
     };
 
     /// <summary>
@@ -83,6 +130,7 @@ public class GameState
     /// </summary>
     public static Color[] _skyboxList { get; set; } = new[]
     {
+
         // Alien
         new Color(0, 160f/255f, 240f/255f, 1),
         new Color(255f/255f, 157f/255f, 113f/255f, 1),
@@ -133,7 +181,19 @@ public class GameState
         new Color(245f/255f, 160f/255f, 77f/255f, 0),
         new Color(245f/255f, 160f/255f, 77f/255f, 0),
         new Color(66f/255f, 70f/255f, 86f/255f, 0),
-        new Color(66f/255f, 70f/255f, 86f/255f, 0)      //
+        new Color(66f/255f, 70f/255f, 86f/255f, 0),     //
+
+        // Alien Lava
+        new Color(0, 160f/255f, 240f/255f, 1),
+        new Color(255f/255f, 157f/255f, 113f/255f, 1),
+        new Color(0f/255f, 183f/255f, 253f/255f, 1),
+        new Color(0f/255f, 165f/255f, 240f/255f, 1),
+        new Color(0f/255f, 165f/255f, 240f/255f, 1),
+        new Color(0f/255f, 182f/255f, 253f/255f, 1),
+        new Color(0f/255f, 176f/255f, 252f/255f, 1),
+        new Color(35f/255f, 151f/255f, 247f/255f, 1),   // option 41 168 109
+        new Color(0f/255f, 90f/255f, 22f/255f, 1),      // option 94 123 223
+        new Color(138f/255f, 175f/255f, 65f/255f, 1)    // option 0 172 252
 
     };
 
@@ -157,7 +217,13 @@ public class GameState
         "Find",
         "Find TT",
         "Clearcut",
-        "Clearcut TT"
+        "Clearcut TT",
+        "Collection Lava",
+        "Collection Lava TT",
+        "Find Lava",
+        "Find Lava TT",
+        "Clearcut Lava",
+        "Clearcut Lava TT"
     };
 
 

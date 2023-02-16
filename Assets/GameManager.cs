@@ -98,10 +98,24 @@ public class GameManager : MonoBehaviour
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
         int _planetIndex = Random.Range(0, 40);
 
-        _globe = Instantiate(Resources.Load(
-            GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity)
-            as GameObject;
+        // choose between lava and not lava
+        string _levelType = GameState._levelType[GameState._level % 12];
+
+        if (_levelType.Contains("Lava"))
+        {
+            // structure is 40 normal worlds, 40 lava equivalents
+            _globe = Instantiate(Resources.Load(
+                GameState._prefabList[_planetIndex + 40], typeof(GameObject)), Vector3.zero, Quaternion.identity)
+                as GameObject;
+        }
+        else
+        {
+            _globe = Instantiate(Resources.Load(
+                GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity)
+                as GameObject;
+        }
         Debug.LogFormat("Planet: {0}", GameState._prefabList[_planetIndex]);
+
         Camera.main.clearFlags = CameraClearFlags.SolidColor;
         Camera.main.backgroundColor = GameState._skyboxList[_planetIndex];
 
@@ -182,8 +196,9 @@ public class GameManager : MonoBehaviour
         _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level / 5].ToString();
         _level.GetComponent<TextMeshProUGUI>().text = "LEVEL " + GameState._level.ToString();
 
-        // set the timer
-        string _levelType = GameState._levelType[GameState._level % 6];
+        string _levelType = GameState._levelType[GameState._level % 12];
+
+        // set timer if TT level
         if (_levelType.Contains("TT"))
         {
             _countDown = GameState._levelTimers[GameState._level / 6];
@@ -193,6 +208,15 @@ public class GameManager : MonoBehaviour
         else
         {
             _timer.SetActive(false);
+        }
+        // set up lava worlds (currently nothing)
+        if (_levelType.Contains("Lava"))
+        {
+
+        }
+        else
+        {
+
         }
 
     }
