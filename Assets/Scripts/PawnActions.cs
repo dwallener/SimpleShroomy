@@ -4,17 +4,49 @@ using UnityEngine;
 
 public class PawnActions : MonoBehaviour
 {
+
+    MeshCollider _mc;
+    Rigidbody _rb;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _mc = GameManager.Instance._globe.GetComponent<MeshCollider>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // this shouldn't be needed and will probably fuck with physics
-        transform.position = new Vector3(0f, 0f, -2.5f);
+        //transform.position = new Vector3(0f, 0f, -2.5f);
+
+        // detect lava...color of nearest vertex...?
+        var _closestPoint = _mc.ClosestPointOnBounds(new Vector3(0f, 0f, -2.7f));
+        Debug.Log("Closest point: " + _closestPoint);
+
+        // this works for tracking elevation to surface!
+        RaycastHit _hit;
+        Physics.Raycast(new Vector3(0f, 0f, -2.7f), new Vector3(0f, 0f, 1f), out _hit);
+        Debug.Log("Hit distance: " + _hit.distance);
+
+        if (GameManager.Instance._isLava)
+        {
+            if ((_hit.distance < 0.11f) && (_rb != null))
+            {
+                Debug.Log("Explode!");
+                // blow him up!!!
+                // power, origin, radius
+                GetComponent<Rigidbody>().AddExplosionForce(100f, new Vector3(Random.Range(0f,1f),Random.Range(0f,1f), 0f), 5f);
+            }
+        }
+        else
+        {
+            // nothing
+        }
+
+        // come back to rotations later
+
         //transform.forward = GameManager.Instance._spinDir;
         //Vector3 _rotate = new Vector3(0f, 0f, GameManager.Instance._spinAngle);
         //transform.rotation = Quaternion.LookRotation(GameManager.Instance._spinDir);

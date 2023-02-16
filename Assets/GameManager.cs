@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     //public Quaternion _spinDir;
     public Vector3 _spinDir = Vector3.zero;
     public float _spinAngle = 0f;
+    public bool _isLava = false;
 
     /// <summary>
     /// Constructor singleton
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
 
         if (_levelType.Contains("Lava"))
         {
+            _isLava = true;
             // structure is 40 normal worlds, 40 lava equivalents
             _globe = Instantiate(Resources.Load(
                 GameState._prefabList[_planetIndex + 40], typeof(GameObject)), Vector3.zero, Quaternion.identity)
@@ -110,6 +112,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            _isLava = false;
             _globe = Instantiate(Resources.Load(
                 GameState._prefabList[_planetIndex], typeof(GameObject)), Vector3.zero, Quaternion.identity)
                 as GameObject;
@@ -167,7 +170,7 @@ public class GameManager : MonoBehaviour
         // pawn is colliding with shrooms successfully, but not with planet.
         Rigidbody _rb = _pawn.GetComponent<Rigidbody>();
 
-        _rb.mass = 10000f;
+        _rb.mass = 100f;
         // turn off normal gravity
         _rb.useGravity = false;
         _rb.centerOfMass = new Vector3(0f, 0f, -0.5f);
