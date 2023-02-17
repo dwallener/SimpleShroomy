@@ -250,7 +250,6 @@ public class GameManager : MonoBehaviour
 
         if (_levelType == "Collection")
         {
-
             _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
@@ -335,8 +334,7 @@ public class GameManager : MonoBehaviour
 
         if (_levelType == "Collection Lava")
         {
-
-            _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level / 5]);
+            _messageText.text = string.Format("Collect {0} Shroomies! Lava! Bad!", GameState._levelGoals[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
@@ -347,7 +345,7 @@ public class GameManager : MonoBehaviour
         }
         else if (_levelType == "Collection Lava TT")
         {
-            _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds!",
+            _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds! Lava! Bad!",
                 GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
@@ -362,7 +360,7 @@ public class GameManager : MonoBehaviour
         }
         else if (_levelType == "Find Lava")
         {
-            _messageText.text = string.Format("Find the magic Shroomie!");
+            _messageText.text = string.Format("Find the magic Shroomie! Lava! Bad!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
@@ -375,7 +373,7 @@ public class GameManager : MonoBehaviour
 
         if (_levelType == "Find Lava TT")
         {
-            _messageText.text = string.Format("Find the magic Shroomie in {0} seconds!",
+            _messageText.text = string.Format("Find the magic Shroomie in {0} seconds! Lava! Bad!",
                 GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
@@ -390,7 +388,7 @@ public class GameManager : MonoBehaviour
 
         if (_levelType == "Clearcut Lava")
         {
-            _messageText.text = string.Format("Collect all the shroomies!");
+            _messageText.text = string.Format("Collect all the shroomies! Lava! Bad!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
@@ -403,7 +401,7 @@ public class GameManager : MonoBehaviour
 
         if (_levelType == "Clearcut Lava TT")
         {
-            _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
+            _messageText.text = string.Format("Collect all the shroomies in {0} seconds! Lava! Bad!",
                GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
@@ -477,8 +475,46 @@ public class GameManager : MonoBehaviour
 
             yield return null;
         }
+    }
 
-        //yield return new WaitForEndOfFrame();
+    /// <summary>
+    /// Fade Out When Exploded by Lava
+    /// </summary>
+    /// <param name="_fadeSpeed"></param>
+    /// <returns></returns>
+    public IEnumerator FadeOutLava(int _fadeSpeed)
+    {
+        Color _fadeColor = _curtain.GetComponent<Image>().color;
+        float _fadeAmount;
+
+        while (_curtain.GetComponent<Image>().color.a < 1)
+        {
+            _fadeAmount = _fadeColor.a + (_fadeSpeed * Time.deltaTime);
+            _fadeColor = new Color(_fadeColor.r, _fadeColor.g, _fadeColor.b, _fadeAmount);
+            _curtain.GetComponent<Image>().color = _fadeColor;
+
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Fade out when timer hits and goal not reached
+    /// </summary>
+    /// <param name="_fadeSpeed"></param>
+    /// <returns></returns>
+    public IEnumerator FadeOutTimer(int _fadeSpeed)
+    {
+        Color _fadeColor = _curtain.GetComponent<Image>().color;
+        float _fadeAmount;
+
+        while (_curtain.GetComponent<Image>().color.a < 1)
+        {
+            _fadeAmount = _fadeColor.a + (_fadeSpeed * Time.deltaTime);
+            _fadeColor = new Color(_fadeColor.r, _fadeColor.g, _fadeColor.b, _fadeAmount);
+            _curtain.GetComponent<Image>().color = _fadeColor;
+
+            yield return null;
+        }
     }
 
     /// <summary>
