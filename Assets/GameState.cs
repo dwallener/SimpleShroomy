@@ -26,6 +26,61 @@ public class GameState
     /// </summary>
     public static int[] _levelTimers { get; set; } = new[] { 60, 45, 30, 25, 20, 15, 10 };
 
+    public static float[] _lavaElevation { get; set; } = new[]
+    {
+        // alien
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+
+        // earthish
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0f,
+        0.096f,
+        0f,
+
+        // tundra
+        0f,
+        0f,
+        0f,
+        0f,
+        0.063f,
+
+        // desert
+        0f,
+        0f,
+        0f,
+        0f,
+        0.063f,
+
+        // frozen
+        0f,
+        0f,
+        0f,
+        0f,
+        0.063f,
+
+        // temperate
+        0f,
+        0f,
+        0f,
+        0f,
+        0.063f,
+    };
+
     /// <summary>
     /// Ordered list of planets, but drawn randomly
     /// </summary>

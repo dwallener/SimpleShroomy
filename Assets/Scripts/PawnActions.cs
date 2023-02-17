@@ -18,12 +18,14 @@ public class PawnActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // this shouldn't be needed and will probably fuck with physics
-        //transform.position = new Vector3(0f, 0f, -2.5f);
 
-        // detect lava...color of nearest vertex...?
-        var _closestPoint = _mc.ClosestPointOnBounds(new Vector3(0f, 0f, -2.7f));
-        Debug.Log("Closest point: " + _closestPoint);
+        // want different behavior for lava and not-lava
+
+        if (!GameManager.Instance._isExplode)
+        {
+            // this shouldn't be needed and will probably fuck with physics
+            transform.position = new Vector3(0f, 0f, -2.5f);
+        }
 
         // this works for tracking elevation to surface!
         RaycastHit _hit;
@@ -35,9 +37,18 @@ public class PawnActions : MonoBehaviour
             if ((_hit.distance < 0.11f) && (_rb != null))
             {
                 Debug.Log("Explode!");
+                GameManager.Instance._isExplode = true;
                 // blow him up!!!
                 // power, origin, radius
                 GetComponent<Rigidbody>().AddExplosionForce(100f, new Vector3(Random.Range(0f,1f),Random.Range(0f,1f), 0f), 5f);
+
+                //hmmm...not giving desired effect...
+                //GetComponent<Rigidbody>().AddRelativeTorque(1000f * new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
+
+                // tranform.rotate...?
+                //Vector3 _eulerAngleVelocity = new Vector3(Random.Range(1f, 10f), Random.Range(100f, 500f), Random.Range(1f, 10f));
+                //Quaternion _deltaRotation = Quaternion.Euler(_eulerAngleVelocity * Time.deltaTime);
+                //_rb.MoveRotation(_rb.rotation * _deltaRotation);
             }
         }
         else

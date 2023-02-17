@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public Vector3 _spinDir = Vector3.zero;
     public float _spinAngle = 0f;
     public bool _isLava = false;
+    public bool _isExplode = false;
 
     /// <summary>
     /// Constructor singleton
@@ -170,7 +171,7 @@ public class GameManager : MonoBehaviour
         // pawn is colliding with shrooms successfully, but not with planet.
         Rigidbody _rb = _pawn.GetComponent<Rigidbody>();
 
-        _rb.mass = 100f;
+        _rb.mass = 1000f;
         // turn off normal gravity
         _rb.useGravity = false;
         _rb.centerOfMass = new Vector3(0f, 0f, -0.5f);
@@ -244,6 +245,9 @@ public class GameManager : MonoBehaviour
         string _levelType = GameState._levelType[GameState._level % 6];
 
         // bucket the level types
+
+        // !Lava
+
         if (_levelType == "Collection")
         {
 
@@ -313,6 +317,91 @@ public class GameManager : MonoBehaviour
         }
 
         if (_levelType == "Clearcut TT")
+        {
+            _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
+               GameState._levelTimers[GameState._level / 6]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
+        }
+
+        // !Lava
+
+        if (_levelType == "Collection Lava")
+        {
+
+            _messageText.text = string.Format("Collect {0} Shroomies!", GameState._levelGoals[GameState._level / 5]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
+        }
+        else if (_levelType == "Collection Lava TT")
+        {
+            _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds!",
+                GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
+            // this needs timer check as well
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
+        }
+        else if (_levelType == "Find Lava")
+        {
+            _messageText.text = string.Format("Find the magic Shroomie!");
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
+        }
+
+        if (_levelType == "Find Lava TT")
+        {
+            _messageText.text = string.Format("Find the magic Shroomie in {0} seconds!",
+                GameState._levelTimers[GameState._level / 6]);
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
+        }
+
+        if (_levelType == "Clearcut Lava")
+        {
+            _messageText.text = string.Format("Collect all the shroomies!");
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            {
+                // force player score to 0...?
+                _playerScore = 0;
+                AdvanceLevel();
+                return;
+            }
+        }
+
+        if (_levelType == "Clearcut Lava TT")
         {
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
                GameState._levelTimers[GameState._level / 6]);
@@ -446,7 +535,8 @@ public class GameManager : MonoBehaviour
         int _rngShroomIndex = Random.Range(1, 5);
         Vector3 _rng;
 
-        string _shroomPrefab = "Prefabs/Shroom" + _rngShroomIndex;
+        //string _shroomPrefab = "Prefabs/Shroom" + _rngShroomIndex;
+        string _shroomPrefab = "Prefabs/blueMushroom";
         Debug.Log("Shroom Prefab: " + _shroomPrefab);
 
         GameObject[] _mushroom = new GameObject[_rngNumShrooms];
@@ -460,7 +550,8 @@ public class GameManager : MonoBehaviour
             _mushroom[i].AddComponent<MushroomActions>();
             _mushroom[i].AddComponent<Rigidbody>();
             _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
-            _mushroom[i].AddComponent<BoxCollider>();
+            BoxCollider _bc = _mushroom[i].AddComponent<BoxCollider>();
+            _bc.size = new Vector3(0.3f, 0.3f, 0.3f);
             _mushroom[i].transform.parent = _globe.transform;
             _mushroom[i].name = "Shroomie";
         }

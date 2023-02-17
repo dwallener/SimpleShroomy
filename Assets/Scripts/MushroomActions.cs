@@ -49,7 +49,7 @@ public class MushroomActions : MonoBehaviour
                     _thisgo.GetComponent<Rigidbody>().useGravity = false;
 
                     //_thisgo.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-                    _thisgo.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0f, 0f, 0f), Time.deltaTime * 20);
+                    _thisgo.transform.localScale = Vector3.Lerp(new Vector3(0.2f, 0.2f, 0.2f), new Vector3(0f, 0f, 0f), Time.deltaTime * 20);
 
                     // position is guaranteed to be close to Pawn position
                     _thisgo.transform.position = new Vector3(0f + Random.Range(0f,0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f));
