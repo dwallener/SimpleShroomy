@@ -30,13 +30,13 @@ public class PawnActions : MonoBehaviour
         // this works for tracking elevation to surface!
         RaycastHit _hit;
         Physics.Raycast(new Vector3(0f, 0f, -2.7f), new Vector3(0f, 0f, 1f), out _hit);
-        Debug.Log("Hit distance: " + _hit.distance);
+        //Debug.Log("Hit distance: " + _hit.distance);
 
         if (GameManager.Instance._isLava)
         {
             if ((_hit.distance < 0.11f) && (_rb != null))
             {
-                Debug.Log("Explode!");
+                //Debug.Log("Explode!");
                 GameManager.Instance._isExplode = true;
                 // blow him up!!!
                 // power, origin, radius

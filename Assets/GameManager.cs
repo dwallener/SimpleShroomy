@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     public float _spinAngle = 0f;
     public bool _isLava = false;
     public bool _isExplode = false;
+    public int _thisLevelGoal = 0;
 
     /// <summary>
     /// Constructor singleton
@@ -197,10 +198,23 @@ public class GameManager : MonoBehaviour
         //_score.GetComponent<TextMeshProUGUI>().text = "Score: " + 0.ToString() + " of ";
         _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
 
-        _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level / 5].ToString();
-        _level.GetComponent<TextMeshProUGUI>().text = "LEVEL " + GameState._level.ToString();
-
+        // need different goal for each type
         string _levelType = GameState._levelType[GameState._level % 12];
+
+        if (_levelType.Contains("Collect"))
+        {
+            _goal.GetComponent<TextMeshProUGUI>().text = GameState._levelGoals[GameState._level / 5].ToString();
+        }
+        if (_levelType.Contains("Clearcut"))
+        {
+            _goal.GetComponent<TextMeshProUGUI>().text = _thisLevelGoal.ToString();
+        }
+        if (_levelType.Contains("Find"))
+        {
+            _goal.GetComponent<TextMeshProUGUI>().text = "1";
+        }
+
+        _level.GetComponent<TextMeshProUGUI>().text = "LEVEL " + GameState._level.ToString();
 
         // set timer if TT level
         if (_levelType.Contains("TT"))
@@ -223,6 +237,8 @@ public class GameManager : MonoBehaviour
 
         }
 
+        Debug.Log("Level goal: " + _thisLevelGoal);
+
     }
 
     /// <summary>
@@ -242,7 +258,7 @@ public class GameManager : MonoBehaviour
         }
 
         // get level end conditions
-        string _levelType = GameState._levelType[GameState._level % 6];
+        string _levelType = GameState._levelType[GameState._level % 12];
 
         // bucket the level types
 
@@ -278,7 +294,9 @@ public class GameManager : MonoBehaviour
         {
             _messageText.text = string.Format("Find the magic Shroomie!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            // find levels only need 1 shroomie
+            if (_playerScore >= 1)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -293,7 +311,8 @@ public class GameManager : MonoBehaviour
                 GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            if (_playerScore >= 1)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -306,7 +325,8 @@ public class GameManager : MonoBehaviour
         {
             _messageText.text = string.Format("Collect all the shroomies!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            if (_playerScore >= GameManager.Instance._thisLevelGoal)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -321,7 +341,8 @@ public class GameManager : MonoBehaviour
                GameState._levelTimers[GameState._level / 6]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            if (_playerScore >= GameManager.Instance._thisLevelGoal)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -361,8 +382,9 @@ public class GameManager : MonoBehaviour
         else if (_levelType == "Find Lava")
         {
             _messageText.text = string.Format("Find the magic Shroomie! Lava! Bad!");
-            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of 1";
+            if (_playerScore >= 1)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -375,9 +397,10 @@ public class GameManager : MonoBehaviour
         {
             _messageText.text = string.Format("Find the magic Shroomie in {0} seconds! Lava! Bad!",
                 GameState._levelTimers[GameState._level / 6]);
-            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of 1";
             _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            if (_playerScore >= 1)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -389,8 +412,9 @@ public class GameManager : MonoBehaviour
         if (_levelType == "Clearcut Lava")
         {
             _messageText.text = string.Format("Collect all the shroomies! Lava! Bad!");
-            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of " + _thisLevelGoal;
+            if (_playerScore >= GameManager.Instance._thisLevelGoal)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -403,9 +427,10 @@ public class GameManager : MonoBehaviour
         {
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds! Lava! Bad!",
                GameState._levelTimers[GameState._level / 6]);
-            _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
+            _scoreText.text = "Score: " + _playerScore.ToString() + " of " + _thisLevelGoal;
             _timerText.text = string.Format("{0} s", Mathf.RoundToInt(_countDownf));
-            if (_playerScore >= GameState._levelGoals[GameState._level / 6])
+            if (_playerScore >= GameManager.Instance._thisLevelGoal)
+            //if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
@@ -566,14 +591,42 @@ public class GameManager : MonoBehaviour
 
         int _level = GameState._level; // less typing :)
         int _rngLevelMod5 = Random.Range(0, GameState._levelGoals.Length);
-        int _rngNumShrooms = Random.Range(25, 76); // int Random is not inclusive
         float _fallHeight = Random.Range(5f, 11f);
-        int _rngShroomIndex = Random.Range(1, 5);
         Vector3 _rng;
 
-        //string _shroomPrefab = "Prefabs/Shroom" + _rngShroomIndex;
-        string _shroomPrefab = "Prefabs/blueMushroom";
+
+        // the thinking here...
+        // "Find" levels use 1 pink shroom
+        // "Collect" levels use blue shrooms
+        // "Clearcut" levels use green shrooms
+
+        string _shroomPrefab = "";
+        int _rngNumShrooms = 0; // int Random is not inclusive
+
+        switch (GameState._level % 12)
+        {
+            case 2 or 3 or 8 or 9: // "Find"
+                _shroomPrefab = "Prefabs/pinkMushroom";
+                _rngNumShrooms = Random.Range(1, 3); // int Random is not inclusive
+                _thisLevelGoal = 1;
+                break;
+            case 0 or 1 or 6 or 7: // Collect
+                _shroomPrefab = "Prefabs/blueMushroom";
+                _rngNumShrooms = Random.Range(25, 76); // int Random is not inclusive
+                _thisLevelGoal = GameState._levelGoals[GameState._level / 5];
+                break;
+            case 4 or 5 or 10 or 11: // Clearcut
+                _shroomPrefab = "Prefabs/greenMushroom";
+                // have a modifier to increase difficulty...?
+                _rngNumShrooms = Random.Range(25, 35); // int Random is not inclusive
+                _thisLevelGoal = _rngNumShrooms;
+                break;
+            default:
+                break;
+        }
         Debug.Log("Shroom Prefab: " + _shroomPrefab);
+
+        string _levelType = GameState._levelType[GameState._level % 12];
 
         GameObject[] _mushroom = new GameObject[_rngNumShrooms];
 
