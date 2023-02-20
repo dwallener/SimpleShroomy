@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         // PLANET
 
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
-        int _planetIndex = Random.Range(0, 40);
+        int _planetIndex = Random.Range(0, 20); // %20 to check collision mesh on alien/earth planets
 
         // choose between lava and not lava
         string _levelType = GameState._levelType[GameState._level % 12];
@@ -124,20 +124,19 @@ public class GameManager : MonoBehaviour
         Camera.main.clearFlags = CameraClearFlags.SolidColor;
         Camera.main.backgroundColor = GameState._skyboxList[_planetIndex];
 
-        // set up our own gravity
+        // set up our own gravity and physics
         _globe.AddComponent<GravityAttractor>();
         _globe.AddComponent<GlobeActions>();
         _globe.AddComponent<Rigidbody>();
         _globe.GetComponent<Rigidbody>().useGravity = false;
         _globe.GetComponent<Rigidbody>().isKinematic = true;
+        _globe.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
 
-        // sphere collider sucks, can we do a mesh collider?
-        //_globe.AddComponent<SphereCollider>();
-        // this almost works! and I think we're well under the 255 triangles limit
-        // nope - over the limit
+        // issue with 256 triangle limit on meshcollider
         MeshCollider _mc = _globe.AddComponent<MeshCollider>();
         _mc.convex = true;
 
+        // adjust the position and scale of the planet
         _globe.transform.position = Vector3.zero;
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
         _globe.tag = "Planet";
@@ -147,9 +146,6 @@ public class GameManager : MonoBehaviour
         // PAWN
         GameObject _pawn = new GameObject();
 
-        // let's try wrapping a texture around the capsule
-        //_pawn = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-
         // load a model prefab - made a variant with the skin etc
         _pawn = Instantiate(Resources.Load<GameObject>("Prefabs/Pawns/Pawn"), new Vector3(0f, 0f, -2.5f), Quaternion.identity);
 
@@ -158,10 +154,6 @@ public class GameManager : MonoBehaviour
         _pawn.transform.Rotate(0, 180, 0);
         _pawn.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
-        BoxCollider _bc = _pawn.AddComponent<BoxCollider>();
-        // tallify the box in Z - tweak this again in #scene
-        _bc.size = new Vector3(3f, 3f, 3f);
-
         // give it it's own intelligence
         _pawn.AddComponent<PawnActions>();
         _pawn.name = "Pawn";
@@ -169,11 +161,13 @@ public class GameManager : MonoBehaviour
         // use planet gravity attractor
         _pawn.AddComponent<GravityBody>();
 
+        BoxCollider _bc = _pawn.AddComponent<BoxCollider>();
+        // tallify the box in Z - tweak this again in #scene
+        _bc.size = new Vector3(3f, 3f, 3f);
+
         // pawn is colliding with shrooms successfully, but not with planet.
         Rigidbody _rb = _pawn.GetComponent<Rigidbody>();
-
         _rb.mass = 1000f;
-        // turn off normal gravity
         _rb.useGravity = false;
         _rb.centerOfMass = new Vector3(0f, 0f, -0.5f);
 

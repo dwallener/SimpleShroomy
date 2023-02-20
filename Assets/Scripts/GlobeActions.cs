@@ -22,6 +22,28 @@ public class GlobeActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // screen touches
+        if (Input.touchCount > 0)
+        {
+            Touch _touch = Input.GetTouch(0);
+            if (_touch.phase == TouchPhase.Moved)
+            {
+                speed = new Vector3(-Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+                avgSpeed = Vector3.Lerp(avgSpeed, speed, Time.deltaTime * 5);
+            }
+        }
+        else
+        {
+            //if (dragging)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                speed = avgSpeed;
+                dragging = false;
+            }
+            var i = Time.deltaTime * lerpSpeed;
+            speed = Vector3.Lerp(speed, Vector3.zero, i);
+        }
+
 
         if (Input.GetMouseButton(0) && dragging)
         {
