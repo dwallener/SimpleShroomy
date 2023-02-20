@@ -99,8 +99,9 @@ public class GameManager : MonoBehaviour
         // PLANET
 
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
-        int _planetIndex = Random.Range(0, 40); 
-
+        int _planetIndex = Random.Range(0, 40);
+        Debug.Log("Planet Index: " + _planetIndex);
+        Debug.Log("Planet Name: " + GameState._prefabList[_planetIndex]);
         // choose between lava and not lava
         string _levelType = GameState._levelType[GameState._level % 12];
 
