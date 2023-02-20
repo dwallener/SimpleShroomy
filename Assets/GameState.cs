@@ -201,44 +201,44 @@ public class GameState
         new Color(138f/255f, 175f/255f, 65f/255f, 1),   // option 0 172 252
 
         // Earth
-        new Color(65f/255f, 71f/255f, 86f/255f, 0),     //
-        new Color(0f/255f, 91f/255f, 157f/255f, 0),     // option 52 74 83
-        new Color(52f/255f, 74f/255f, 83f/255f, 0),     //
-        new Color(65f/255f, 71f/255f, 86f/255f, 0),     
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
+        new Color(10f/255f, 101f/255f, 167f/255f, 0),     // option 52 74 83
         new Color(0f/255f, 91f/255f, 157f/255f, 0),     
-        new Color(52f/255f, 74f/255f, 83f/255f, 0),     
-        new Color(65f/255f, 71f/255f, 86f/255f, 0),     
-        new Color(0f/255f, 91f/255f, 157f/255f, 0),     
-        new Color(52f/255f, 74f/255f, 83f/255f, 0),     
-        new Color(65f/255f, 71f/255f, 86f/255f, 0),
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
+        new Color(10f/255f, 101f/255f, 167f/255f, 0),     // option 52 74 83
+        new Color(0f/255f, 91f/255f, 157f/255f, 0),
+        new Color(10f/255f, 101f/255f, 167f/255f, 0),     // option 52 74 83
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
 
         // Tundra
-        new Color(255f/255f, 49f/255f, 132f/255f, 0),   //
-        new Color(73f/255f, 71f/255f, 56f/255f, 0),     // 201 137 185
-        new Color(0f/255f, 161f/255f, 2239f/255f, 0),   //
-        new Color(190f/255f, 133f/255f, 42f/255f, 0),
-        new Color(149f/255f, 194f/255f, 178f/255f, 0),
+        new Color(86f/255f, 190f/255f, 235f/255f, 0),   //
+        new Color(0f/255f, 161f/255f, 238f/255f, 0),   //
+        new Color(86f/255f, 190f/255f, 235f/255f, 0),   //
+        new Color(0f/255f, 161f/255f, 238f/255f, 0),   //
+        new Color(86f/255f, 190f/255f, 235f/255f, 0),   //
 
         // Desert
-        new Color(105f/255f, 162f/255f, 244f/255f, 0),  // option 33 182 123
-        new Color(145f/255f, 139f/255f, 192f/255f, 0),  // option 0 187 223, 3 166 144
-        new Color(133f/255f, 124f/255f, 231f/255f, 0),  // option 148 151 236, 77 177 130, 0 161 107
-        new Color(0f/255f, 181f/255f, 213f/255f, 0),    //
+        new Color(0f/255f, 194f/255f, 252f/255f, 0),    //
+        new Color(0f/255f, 194f/255f, 252f/255f, 0),    //
+        new Color(0f/255f, 194f/255f, 252f/255f, 0),    //
+        new Color(0f/255f, 194f/255f, 252f/255f, 0),    //
         new Color(0f/255f, 194f/255f, 252f/255f, 0),    //
 
         // Frozen
-        new Color(63f/255f, 74f/255f, 60f/255f, 0),     //
-        new Color(63f/255f, 74f/255f, 60f/255f, 0),     //
-        new Color(63f/255f, 74f/255f, 60f/255f, 0),     //
-        new Color(249f/255f, 248f/255f, 123f/255f, 0),  //
+        new Color(0f/255f, 186f/255f, 209f/255f, 0),     //
+        new Color(0f/255f, 186f/255f, 209f/255f, 0),     //
+        new Color(0f/255f, 186f/255f, 209f/255f, 0),     //
+        new Color(152f/255f, 21f/255f, 229f/255f, 0),   //
         new Color(152f/255f, 21f/255f, 229f/255f, 0),   //
 
         // Temperate
-        new Color(245f/255f, 160f/255f, 77f/255f, 0),   //
-        new Color(245f/255f, 160f/255f, 77f/255f, 0),
-        new Color(245f/255f, 160f/255f, 77f/255f, 0),
-        new Color(66f/255f, 70f/255f, 86f/255f, 0),
-        new Color(66f/255f, 70f/255f, 86f/255f, 0),     //
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
+        new Color(23f/255f, 50f/255f, 73f/255f, 0),   //
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
+        new Color(23f/255f, 50f/255f, 73f/255f, 0),   //
+        new Color(0f/255f, 161f/255f, 239f/255f, 0),
 
         // Alien Lava
         new Color(0, 160f/255f, 240f/255f, 1),

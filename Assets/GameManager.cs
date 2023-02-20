@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         // PLANET
 
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
-        int _planetIndex = Random.Range(0, 40);
+        int _planetIndex = Random.Range(0, 10); // tundra only for now
         Debug.Log("Planet Index: " + _planetIndex);
         Debug.Log("Planet Name: " + GameState._prefabList[_planetIndex]);
 
@@ -519,11 +519,11 @@ public class GameManager : MonoBehaviour
         // wait for fade
         if (_won)
         {
-            yield return FadeOut(3);
+            yield return FadeOut(1);
         }
         else
         {
-            yield return FadeOutLoser(3);
+            yield return FadeOutLoser(1);
         }
 
         // if we've done the level reading/randomization correctly
@@ -542,6 +542,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FadeOut(int _fadeSpeed)
     {
+        _curtain.GetComponent<Image>().color = new Color32(255, 255, 255, 100); // Color.black;
         Color _fadeColor = _curtain.GetComponent<Image>().color;
         float _fadeAmount;
 
@@ -562,8 +563,8 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FadeOutLoser(int _fadeSpeed)
     {
-        //Color _fadeColor = _curtain.GetComponent<Image>().color;
-        Color _fadeColor = Color.red;
+        _curtain.GetComponent<Image>().color = new Color32(255, 0, 0, 100); // Color.red;
+        Color _fadeColor = _curtain.GetComponent<Image>().color;
         float _fadeAmount;
 
         while (_curtain.GetComponent<Image>().color.a < 1)
