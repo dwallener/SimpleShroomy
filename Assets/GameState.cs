@@ -281,7 +281,7 @@ public class GameState
         // Frozen Lava
         new Color(63f/255f, 74f/255f, 60f/255f, 0),     //
         new Color(63f/255f, 74f/255f, 60f/255f, 0),     //
-        new Color(63f/255f, 74f/255f, 60f/255f, 0),     //
+        new Color(63f/255f, 74f/255f, 60f/255f, 0),     // maybe green is too dark
         new Color(249f/255f, 248f/255f, 123f/255f, 0),  //
         new Color(152f/255f, 21f/255f, 229f/255f, 0),   //
 

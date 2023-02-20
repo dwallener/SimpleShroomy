@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
         int _planetIndex = Random.Range(0, 40);
         Debug.Log("Planet Index: " + _planetIndex);
         Debug.Log("Planet Name: " + GameState._prefabList[_planetIndex]);
+
         // choose between lava and not lava
         string _levelType = GameState._levelType[GameState._level % 12];
 
@@ -247,6 +248,8 @@ public class GameManager : MonoBehaviour
         // this is just to debug scene management
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // don't forget to reset score, even in debug!
+            _playerScore = 0;
             GameState._level++;
             Debug.Log("Level: " + GameState._level);
             StartCoroutine(LoadNextScene(true));
