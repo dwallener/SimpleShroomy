@@ -189,15 +189,15 @@ public class GameState
     {
 
         // Alien
-        new Color(0, 160f/255f, 240f/255f, 1),
-        new Color(255f/255f, 157f/255f, 113f/255f, 1),
-        new Color(0f/255f, 183f/255f, 253f/255f, 1),
-        new Color(0f/255f, 165f/255f, 240f/255f, 1),
-        new Color(0f/255f, 165f/255f, 240f/255f, 1),
+        new Color(154f/255f, 222f/255f, 174f/255f, 1),
+        new Color(154f/255f, 222f/255f, 174f/255f, 1),
+        new Color(154f/255f, 222f/255f, 174f/255f, 1),
         new Color(0f/255f, 182f/255f, 253f/255f, 1),
-        new Color(0f/255f, 176f/255f, 252f/255f, 1),
-        new Color(35f/255f, 151f/255f, 247f/255f, 1),   // option 41 168 109
-        new Color(0f/255f, 90f/255f, 22f/255f, 1),      // option 94 123 223
+        new Color(138f/255f, 175f/255f, 65f/255f, 1),   // option 0 172 252
+        new Color(0f/255f, 182f/255f, 253f/255f, 1),
+        new Color(0f/255f, 182f/255f, 253f/255f, 1),
+        new Color(0f/255f, 182f/255f, 253f/255f, 1),
+        new Color(154f/255f, 222f/255f, 174f/255f, 1),
         new Color(138f/255f, 175f/255f, 65f/255f, 1),   // option 0 172 252
 
         // Earth
