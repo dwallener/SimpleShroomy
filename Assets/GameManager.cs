@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         // PLANET
 
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
-        int _planetIndex = Random.Range(0, 20); // %20 to check collision mesh on alien/earth planets
+        int _planetIndex = Random.Range(0, 40); 
 
         // choose between lava and not lava
         string _levelType = GameState._levelType[GameState._level % 12];
