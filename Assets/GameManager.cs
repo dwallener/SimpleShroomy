@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
     public GameObject _pawnExhaust; // the thing to spew from
 
     // Audio thingies
-    public GameObject _audioSource;
-    public AudioSource _audio;
+    public AudioSource _as;
+    public AudioClip _ac;
 
     // player thingies
     public int _playerScore = 0;
@@ -173,6 +173,7 @@ public class GameManager : MonoBehaviour
         _rb.useGravity = false;
         _rb.centerOfMass = new Vector3(0f, 0f, -0.5f);
 
+
     }
 
 
@@ -181,6 +182,18 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+
+        // add audiosource
+        if (_ac == null) { Debug.Log("No audio clip");  }
+        _ac = Resources.Load<AudioClip>("Music/gypsy1");
+        if (_ac != null) { Debug.Log("Audio clip found"); }
+        _as = Camera.main.transform.GetComponent<AudioSource>();
+        if (_as == null) { Debug.Log("AudioSource not found on camera"); }
+        _as.clip = _ac;
+        _as.volume = 1f;
+        _as.loop = true;
+        _as.Play(0);
+
         // always reset, early often late, always
         _playerScore = 0;
       
@@ -689,16 +702,6 @@ public class GameManager : MonoBehaviour
     public void PlayBackgroundMusic()
     {
 
-        AudioClip _song;
-
-        // Loading a new planet should come with music, yes?
-        //_audio = _globe.AddComponent<AudioSource>();
-        _audioSource = GameObject.Find("MusicBG");
-        _audio = _audioSource.GetComponent<AudioSource>();
-        string _songName = "Music/gypsy" + (GameState._level % 3).ToString();
-        _song = Resources.Load(_songName, typeof(AudioClip)) as AudioClip;
-        _audio.clip = _song;
-        _audio.Play();
-
     }
+
 }
