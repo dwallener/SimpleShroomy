@@ -32,8 +32,11 @@ public class GameManager : MonoBehaviour
     public GameObject _pawnExhaust; // the thing to spew from
 
     // Audio thingies
-    public AudioSource _as;
-    public AudioClip _ac;
+    public AudioSource[] _asAll;
+    public AudioSource _asMusic;
+    public AudioSource _asSFX1;
+    public AudioClip _acMusic; // music loop
+    public AudioClip _acSFX1; // mushroom pop sound
 
     // player thingies
     public int _playerScore = 0;
@@ -183,16 +186,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        // add audiosource
-        if (_ac == null) { Debug.Log("No audio clip");  }
-        _ac = Resources.Load<AudioClip>("Music/gypsy1");
-        if (_ac != null) { Debug.Log("Audio clip found"); }
-        _as = Camera.main.transform.GetComponent<AudioSource>();
-        if (_as == null) { Debug.Log("AudioSource not found on camera"); }
-        _as.clip = _ac;
-        _as.volume = 1f;
-        _as.loop = true;
-        _as.Play(0);
+        // add audiosources
+        _asAll = Camera.main.GetComponents<AudioSource>();
+        // get clips
+        _acSFX1 = Resources.Load<AudioClip>("SFX/kungfupunch4");
+        _acMusic = Resources.Load<AudioClip>("SFX/gypsy1");
+
+        // assign music channel
+        _asMusic = _asAll[0];
+        _asMusic.clip = _acMusic;
+        _asMusic.volume = 1f;
+        _asMusic.loop = true;
+        _asMusic.Play(0);
+
+        // assign sfx1 channel
+        _asSFX1 = _asAll[1];
+        _asSFX1.loop = false;
+        _asSFX1.clip = _acSFX1;
+        _asSFX1.volume = 1f;
+
 
         // always reset, early often late, always
         _playerScore = 0;
@@ -688,8 +700,9 @@ public class GameManager : MonoBehaviour
             _mushroom[i].AddComponent<MushroomActions>();
             _mushroom[i].AddComponent<Rigidbody>();
             _mushroom[i].AddComponent<GravityBody>(); // make it feel gravity
-            BoxCollider _bc = _mushroom[i].AddComponent<BoxCollider>();
-            _bc.size = new Vector3(0.3f, 0.3f, 0.3f);
+            BoxCollider _bc = _mushroom[i].GetComponent<BoxCollider>();
+            //_bc.size = new Vector3(0.2f, 0.2f, 0.2f);
+            //_bc.center = new Vector3(-0.5f, -0.5f, -0.5f);
             _mushroom[i].transform.parent = _globe.transform;
             _mushroom[i].name = "Shroomie";
         }

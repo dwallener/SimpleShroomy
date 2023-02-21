@@ -9,10 +9,12 @@ public class MushroomActions : MonoBehaviour
     public float _radius = 2f;
     public int _cubesPerAxis = 4;
 
+    public AudioSource _asSFX1;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,6 +27,9 @@ public class MushroomActions : MonoBehaviour
     {
         if (collision.gameObject.name == "Pawn")
         {
+            // make sound
+            GameManager.Instance._asSFX1.Play(0);
+
             // update score
             GameManager.Instance._playerScore++;
             Debug.Log("Help! I've Fallen And I Can't Get Up!");
