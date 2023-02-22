@@ -47,7 +47,7 @@ public class PawnActions : MonoBehaviour
                 GameManager.Instance._isExplode = true;
                 // blow him up!!!
                 // power, origin, radius
-                GetComponent<Rigidbody>().AddExplosionForce(2000f, new Vector3(Random.Range(0f,1f),Random.Range(0f,1f), 0f), 5f);
+                GetComponent<Rigidbody>().AddExplosionForce(4000f, new Vector3(Random.Range(0f,1f),Random.Range(0f,1f), 0f), 5f);
             }
         }
         else

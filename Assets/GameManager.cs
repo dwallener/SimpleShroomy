@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public GameObject _goal;
     public GameObject _level;
 
+    public GameObject _fps; // for debug only
+    public TextMeshProUGUI _fpsText;
+
     public GameObject _timer;
     public TextMeshProUGUI _timerText;
     public GameObject _panel;
@@ -78,6 +81,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 
+        // this is super important...mobile locks to a max fps based on screen refresh...
+        // in Editor fps is 100s to 1000s of fps...causes physics problems.
+        // we need explicit control of this
+
+        Application.targetFrameRate = 60;
+
         // manage player prefs
         if (PlayerPrefs.HasKey("Level"))
         {
@@ -89,6 +98,9 @@ public class GameManager : MonoBehaviour
 
         // set up the HUD objects
         _curtain = GameObject.Find("curtainBlack");
+
+        _fps = GameObject.Find("fps");
+        _fpsText = _fps.GetComponent<TextMeshProUGUI>();
 
         _message = GameObject.Find("message");
         _messageText = _message.GetComponent<TextMeshProUGUI>();
@@ -282,6 +294,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // update fps
+        _fpsText.text = "FPS: " + (int)(1f / Time.unscaledDeltaTime);
+
         // update the timer
         _countDownf -= Time.deltaTime;
         
