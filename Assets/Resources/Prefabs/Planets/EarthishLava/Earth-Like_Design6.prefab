@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1f767ddbaccb14747821daab7f4d5c41, type: 2}
+    - target: {fileID: -1504981713932161579, guid: d0316d4e31d89e94fbda986af5011d01, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1f767ddbaccb14747821daab7f4d5c41, type: 2}
     - target: {fileID: -927199367670048503, guid: d0316d4e31d89e94fbda986af5011d01, type: 3}
       propertyPath: m_Name
       value: Earth-Like_Design6

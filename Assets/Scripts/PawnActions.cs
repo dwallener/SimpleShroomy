@@ -41,9 +41,9 @@ public class PawnActions : MonoBehaviour
 
         if (GameManager.Instance._isLava)
         {
-            if ((_hit.distance < 0.11f) && (_rb != null))
+            if ((_hit.distance < 0.15f) && (_rb != null))
             {
-                //Debug.Log("Explode!");
+                Debug.Log("Explode!");
                 GameManager.Instance._isExplode = true;
                 // blow him up!!!
                 // power, origin, radius

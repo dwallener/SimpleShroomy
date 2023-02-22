@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         // manage player prefs
         if (PlayerPrefs.HasKey("Level"))
         {
@@ -119,6 +120,9 @@ public class GameManager : MonoBehaviour
             _globe = Instantiate(Resources.Load(
                 GameState._prefabList[_planetIndex + 40], typeof(GameObject)), Vector3.zero, Quaternion.identity)
                 as GameObject;
+            var _newCenter = _globe.transform.position - _globe.GetComponent<MeshFilter>().mesh.bounds.center;
+            _globe.transform.position = _newCenter;
+            Debug.Log("New Center: " + _newCenter);
         }
         else
         {
@@ -158,6 +162,7 @@ public class GameManager : MonoBehaviour
 
         // load a model prefab - made a variant with the skin etc
         _pawn = Instantiate(Resources.Load<GameObject>("Prefabs/Pawns/Pawn"), new Vector3(0f, 0f, -2.5f), Quaternion.identity);
+        _pawn.AddComponent<Rigidbody>();
 
         // set up location, physics, blah blah blah
         //_pawn.transform.position = new Vector3(0f, 0f, -2.7f);
@@ -167,9 +172,6 @@ public class GameManager : MonoBehaviour
         // give it it's own intelligence
         _pawn.AddComponent<PawnActions>();
         _pawn.name = "Pawn";
-
-        // use planet gravity attractor
-        _pawn.AddComponent<GravityBody>();
 
         BoxCollider _bc = _pawn.AddComponent<BoxCollider>();
         // tallify the box in Z - tweak this again in #scene
@@ -181,6 +183,8 @@ public class GameManager : MonoBehaviour
         _rb.useGravity = false;
         _rb.centerOfMass = new Vector3(0f, 0f, -0.5f);
 
+        // use planet gravity attractor
+        _pawn.AddComponent<GravityBody>();
 
     }
 
@@ -543,7 +547,7 @@ public class GameManager : MonoBehaviour
             _asSFX2.Play();
         }
         PlayerPrefs.SetInt("Level", GameState._level);
-        Debug.Log("Level: " + GameState._level);
+        //Debug.Log("Level: " + GameState._level);
         StartCoroutine(LoadNextScene(_won));
     }
 
