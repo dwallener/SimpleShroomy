@@ -568,7 +568,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FadeOut(int _fadeSpeed)
     {
-        _curtain.GetComponent<Image>().color = new Color32(255, 255, 255, 100); // Color.black;
+        _curtain.GetComponent<Image>().color = new Color32(0, 0, 0, 100); // Color.black;
         Color _fadeColor = _curtain.GetComponent<Image>().color;
         float _fadeAmount;
 
