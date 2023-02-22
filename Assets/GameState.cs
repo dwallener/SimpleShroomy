@@ -137,6 +137,63 @@ public class GameState
         new Vector3(0f, 0f, 0f)
     };
 
+    public static Vector3[] _startingScale { get; set; } = new[]
+{
+        // alien
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+
+        // earthish
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+
+
+        // tundra
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+
+        // desert
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+
+        // frozen
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+
+        // temperate
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+        new Vector3(1f, 1f, 1f),
+    };
+
+
     /// <summary>
     /// Ordered list of planets, but drawn randomly
     /// </summary>

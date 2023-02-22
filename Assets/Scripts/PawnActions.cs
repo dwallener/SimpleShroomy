@@ -27,6 +27,12 @@ public class PawnActions : MonoBehaviour
             // this shouldn't be needed and will probably fuck with physics
             transform.position = new Vector3(0f, 0f, -2.5f);
         }
+        else
+        {
+            // tumble!
+            var _newRot = new Vector3(0.5f, 0.5f, 0.5f);
+            transform.Rotate(_newRot);
+        }
 
         // this works for tracking elevation to surface!
         RaycastHit _hit;
@@ -41,7 +47,7 @@ public class PawnActions : MonoBehaviour
                 GameManager.Instance._isExplode = true;
                 // blow him up!!!
                 // power, origin, radius
-                GetComponent<Rigidbody>().AddExplosionForce(10000f, new Vector3(Random.Range(0f,1f),Random.Range(0f,1f), 0f), 5f);
+                GetComponent<Rigidbody>().AddExplosionForce(2000f, new Vector3(Random.Range(0f,1f),Random.Range(0f,1f), 0f), 5f);
             }
         }
         else

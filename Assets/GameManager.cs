@@ -35,8 +35,11 @@ public class GameManager : MonoBehaviour
     public AudioSource[] _asAll;
     public AudioSource _asMusic;
     public AudioSource _asSFX1;
+    public AudioSource _asSFX2;
     public AudioClip _acMusic; // music loop
     public AudioClip _acSFX1; // mushroom pop sound
+    public AudioClip _acSFX2; // win sound
+    public AudioClip _acSFX3; // lose sound
 
     // player thingies
     public int _playerScore = 0;
@@ -143,7 +146,8 @@ public class GameManager : MonoBehaviour
 
         // adjust the position and scale of the planet
         _globe.transform.position = Vector3.zero;
-        _globe.transform.localScale = new Vector3(5f, 5f, 5f);
+        //_globe.transform.localScale = new Vector3(5f, 5f, 5f);
+        _globe.transform.localScale = Vector3.Scale(new Vector3(5f, 5f, 5f), GameState._startingScale[_planetIndex]);
         _globe.transform.Rotate(GameState._startingRot[_planetIndex]);
         _globe.tag = "Planet";
 
@@ -190,7 +194,8 @@ public class GameManager : MonoBehaviour
         // add audiosources
         _asAll = Camera.main.GetComponents<AudioSource>();
         // get clips
-        _acSFX1 = Resources.Load<AudioClip>("SFX/kungfupunch4");
+        _acSFX1 = Resources.Load<AudioClip>("SFX/pop1");
+        _acSFX2 = Resources.Load<AudioClip>("SFX/success1");
         _acMusic = Resources.Load<AudioClip>("SFX/gypsy1");
 
         // assign music channel
@@ -206,6 +211,11 @@ public class GameManager : MonoBehaviour
         _asSFX1.clip = _acSFX1;
         _asSFX1.volume = 1f;
 
+        // assign sfx2 channel
+        _asSFX2 = _asAll[2];
+        _asSFX2.loop = false;
+        _asSFX2.clip = _acSFX2;
+        _asSFX2.volume = 1f;
 
         // always reset, early often late, always
         _playerScore = 0;
@@ -530,6 +540,7 @@ public class GameManager : MonoBehaviour
         if (_won)
         {
             GameState._level++;
+            _asSFX2.Play();
         }
         PlayerPrefs.SetInt("Level", GameState._level);
         Debug.Log("Level: " + GameState._level);
@@ -542,14 +553,17 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public IEnumerator LoadNextScene(bool _won)
     {
+        yield return FadeOut(0.3f);
+
         // wait for fade
+        // keep consistent fadeout, change the win/lost message
         if (_won)
         {
-            yield return FadeOut(1);
+            //yield return StartCoroutine(FadeOut(0.5f));
         }
         else
         {
-            yield return FadeOutLoser(1);
+            //yield return StartCoroutine(FadeOutLoser(0.5f));
         }
 
         // if we've done the level reading/randomization correctly
@@ -566,7 +580,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="_fadeSpeed"></param>
     /// <returns></returns>
-    public IEnumerator FadeOut(int _fadeSpeed)
+    public IEnumerator FadeOut(float _fadeSpeed)
     {
         _curtain.GetComponent<Image>().color = new Color32(0, 0, 0, 100); // Color.black;
         Color _fadeColor = _curtain.GetComponent<Image>().color;
@@ -587,7 +601,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="_fadeSpeed"></param>
     /// <returns></returns>
-    public IEnumerator FadeOutLoser(int _fadeSpeed)
+    public IEnumerator FadeOutLoser(float _fadeSpeed)
     {
         _curtain.GetComponent<Image>().color = new Color32(255, 0, 0, 100); // Color.red;
         Color _fadeColor = _curtain.GetComponent<Image>().color;
