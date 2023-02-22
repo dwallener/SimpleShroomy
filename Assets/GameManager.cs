@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         // PLANET
 
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
-        int _planetIndex = Random.Range(0, 10); // tundra only for now
+        int _planetIndex = Random.Range(0, 40); // tundra only for now
         Debug.Log("Planet Index: " + _planetIndex);
         Debug.Log("Planet Name: " + GameState._prefabList[_planetIndex]);
 
@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
         // adjust the position and scale of the planet
         _globe.transform.position = Vector3.zero;
         _globe.transform.localScale = new Vector3(5f, 5f, 5f);
+        _globe.transform.Rotate(GameState._startingRot[_planetIndex]);
         _globe.tag = "Planet";
 
         //PlayBackgroundMusic();

@@ -25,27 +25,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.65339553
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.6531675
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.2706453
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.27055082
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -89.98
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1f767ddbaccb14747821daab7f4d5c41, type: 2}
     - target: {fileID: -927199367670048503, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}
       propertyPath: m_Name
-      value: Tundra_Design4 Variant
+      value: Tundra_Design4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b5ade88f278d045b61bc9fdcd5d296, type: 3}

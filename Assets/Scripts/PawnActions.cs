@@ -13,6 +13,7 @@ public class PawnActions : MonoBehaviour
     {
         _mc = GameManager.Instance._globe.GetComponent<MeshCollider>();
         _rb = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -41,14 +42,6 @@ public class PawnActions : MonoBehaviour
                 // blow him up!!!
                 // power, origin, radius
                 GetComponent<Rigidbody>().AddExplosionForce(10000f, new Vector3(Random.Range(0f,1f),Random.Range(0f,1f), 0f), 5f);
-
-                //hmmm...not giving desired effect...
-                //GetComponent<Rigidbody>().AddRelativeTorque(1000f * new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
-
-                // tranform.rotate...?
-                //Vector3 _eulerAngleVelocity = new Vector3(Random.Range(1f, 10f), Random.Range(100f, 500f), Random.Range(1f, 10f));
-                //Quaternion _deltaRotation = Quaternion.Euler(_eulerAngleVelocity * Time.deltaTime);
-                //_rb.MoveRotation(_rb.rotation * _deltaRotation);
             }
         }
         else
