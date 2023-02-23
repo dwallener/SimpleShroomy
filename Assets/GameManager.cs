@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour
         // get clips
         _acSFX1 = Resources.Load<AudioClip>("SFX/pop1");
         _acSFX2 = Resources.Load<AudioClip>("SFX/success1");
-        _acSFX3 = Resources.Load<AudioClip>("SFX/fail1");
+        _acSFX3 = Resources.Load<AudioClip>("SFX/fail2"); // sad whistle
         _acMusic = Resources.Load<AudioClip>("SFX/gypsy1");
 
         // assign music channel
@@ -735,6 +735,7 @@ public class GameManager : MonoBehaviour
         CreatePlanet(); 
     }
 
+
     /// <summary>
     /// Add box colliders to topographical features
     /// </summary>
@@ -765,6 +766,7 @@ public class GameManager : MonoBehaviour
         _go.transform.position = _v;
     }
 
+
     /// <summary>
     /// Populate the new planet with baddies and whatnot
     /// </summary>
@@ -775,7 +777,6 @@ public class GameManager : MonoBehaviour
         int _rngLevelMod5 = Random.Range(0, GameState._levelGoals.Length);
         float _fallHeight = Random.Range(5f, 11f);
         Vector3 _rng;
-
 
         // the thinking here...
         // "Find" levels use 1 pink shroom
