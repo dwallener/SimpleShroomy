@@ -26,38 +26,34 @@ public class PawnActions : MonoBehaviour
         {
             // this shouldn't be needed and will probably fuck with physics
             transform.position = new Vector3(0f, 0f, -2.5f);
-            // -90 on x puts it upright
-            // -45 on z puts it upright and looking left, up
-            // +45 on z puts it upright and looking right, down
-            // -45 on y puts it upright and looking left, up
-            // +45 on y puts it upright and looking right, down
-            // -45 on y,z puts it on its back looking up
-            // +45 on y,z puts it face down
-            // -45 on x,z puts it looking NW    <--
-            // +45 on x,z puts it on its side looking SW
-            //transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
 
-            /* all these have problems
-             * 
-            // this rotates ShroomieKing on correct access...now to figure out correct direction
-            //var _newRot = new Vector3(0f, 1f, 0f);
-            //var _angle = Mathf.Atan2(GameManager.Instance._spinDir.y, GameManager.Instance._spinDir.x) * Mathf.Rad2Deg;
-            //Debug.Log("Angle: " + _angle);
-            //var _newRot = new Vector3(0f, _angle, 0f);
+            // z: +45 faces NW, on its side
+            // z: -45 faces SW, on its side
 
-            //var _lookPos = new Vector3(100f * GameManager.Instance._spinDir.x, 100f * GameManager.Instance._spinDir.y, -2.7f);
-            //Debug.Log("LookAt: " + _lookPos);
+            // z: 135 faces SE but upside down
+            // z: -135 faces NE but upside down
+            // y: 90, z: -45 faces N, perfectly
+            // y: 90, z: 0 faces camera, perfectly
+            // x: 90, z:135 faces E, perfectly <---
+            // x: 45, y: 45, z:-135 faces NE <---
+            // y: 90, z: -90 faces NE
+            // y: -90, z: 90 faces SW
+            // y: -90, z: 135 faces S, perfectly   <---
+            // y: 90, z: -45 faces N
 
-            //Quaternion _lookRot = Quaternion.LookRotation(_lookPos - transform.position);
-            //transform.rotation = _lookRot;
+            // perfectly - HOLY CRAP was that a lot of work!
 
-            // transform.LookAt(_lookPos); // rotates on all axis
+            // y: 90, z: -135 faces N
+            // x: 45, y: 90, z: -135 faces NE ... 90deg W is -45, 90, -135
+            // x: 90, y: 90, z:-135 faces E
+            // x: 90, y: -45, z: 135 faces SE
+            // y: -90 z: 135 faces S
+            // x: -45, y: -90, z:135 faces SW
+            // x: -90, y: -90, z:135 faces W 
+            // x: 90, y: 45, z: -135 faces NW ... also -45 90 -135
 
-            //transform.Rotate(_newRot);
-            //transform.LookAt(new Vector3(GameManager.Instance._spinDir.x, GameManager.Instance._spinDir.y, -2.7f));
+            //transform.localRotation = Quaternion.Euler(-45, 90, -135);
 
-            *
-            */
         }
         else
         {
