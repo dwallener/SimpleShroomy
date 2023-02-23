@@ -8,19 +8,14 @@ public class MushroomActions : MonoBehaviour
     public float _force = 0f;
     public float _radius = 2f;
     public int _cubesPerAxis = 4;
+    public string _shroomPrefab;
 
-    public AudioSource _asSFX1;
+    GameObject _thisgo;
 
     // Start is called before the first frame update
     void Start()
     {
-#if UNITY_IOS
-        _force = 50000f;
-#endif
-
-#if UNITY_EDITOR
-        _force = 5000f;
-#endif
+        _force = 1000f;
     }
 
     // Update is called once per frame
@@ -44,6 +39,10 @@ public class MushroomActions : MonoBehaviour
         }
     }
 
+
+    // CreatePrimitive is the problem here...it's getting stripped at build time
+    // solution is to "declare private properties of these types."
+
     public void MakeBang()
     {
         for (int x = 0; x < _cubesPerAxis; x++)
@@ -53,36 +52,45 @@ public class MushroomActions : MonoBehaviour
                 for (int z = 0; z < _cubesPerAxis; z++)
                 {
                     // confetti time!
-                    Debug.Log("create gameobject");
-                    var _thisgo = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    _thisgo.name = "ExplodingSphere";
 
-                    Debug.Log("Get renderer component");
-                    _thisgo.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-                    // xcode reporting that SphereCollider doesn't exist! Argh...
-
-                    Debug.Log("Add spherecollider if necessary");
-                    if (_thisgo.GetComponent<SphereCollider>() == null)
+                    int _shroomIndex = (x + 1) * (y + 1) * (z + 1) % 3;
+                    switch (_shroomIndex)
                     {
-                        _thisgo.gameObject.AddComponent<SphereCollider>();
-                        //_thisgo.AddComponent<SphereCollider>();
+                        case 0:
+                            _shroomPrefab = "Prefabs/pinkMushroom";
+                            _thisgo = Instantiate(Resources.Load(
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                            break;
+                        case 1:
+                            _shroomPrefab = "Prefabs/blueMushroom";
+                            _thisgo = Instantiate(Resources.Load(
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                            break;
+                        case 2:
+                            _shroomPrefab = "Prefabs/greenMushroom";
+                            _thisgo = Instantiate(Resources.Load(
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                            break;
+                        default:
+                            _shroomPrefab = "Prefabs/pinkMushroom";
+                            _thisgo = Instantiate(Resources.Load(
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                            break;
                     }
 
-                    Debug.Log("Add rigidbody");
+                    _thisgo.name = "ExplodingSphere";
+
                     _thisgo.AddComponent<Rigidbody>();
-                    Debug.Log("clear gravity flag");
                     _thisgo.GetComponent<Rigidbody>().useGravity = false;
+                    _thisgo.GetComponent<Rigidbody>().mass = 10f;
+                    _thisgo.AddComponent<GravityBody>();
 
                     //_thisgo.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-                    _thisgo.transform.localScale = Vector3.Lerp(new Vector3(0.2f, 0.2f, 0.2f), new Vector3(0f, 0f, 0f), Time.deltaTime * 20);
+                    _thisgo.transform.localScale = Vector3.Lerp(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0f, 0f, 0f), Time.deltaTime * 20);
 
                     // position is guaranteed to be close to Pawn position
-#if UNITY_IOS
-                    _thisgo.transform.position = new Vector3(0f + Random.Range(0f,0.2f), 0f + Random.Range(0f, 0.2f), -3.2f + Random.Range(0f, 0.2f));
-#endif
-#if UNITY_EDITOR
+                    //_thisgo.transform.position = new Vector3(0f + Random.Range(0f,0.2f), 0f + Random.Range(0f, 0.2f), -3.2f + Random.Range(0f, 0.2f));
                     _thisgo.transform.position = new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f));
-#endif
                     _thisgo.GetComponent<Rigidbody>().AddExplosionForce(_force, new Vector3(0f, 0f, -2.7f), _radius);
                     _thisgo.AddComponent<ShroomParticleActions>();
 

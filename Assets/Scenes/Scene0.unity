@@ -171,6 +171,7 @@ MonoBehaviour:
   _asMusic: {fileID: 0}
   _asSFX1: {fileID: 0}
   _asSFX2: {fileID: 0}
+  _asSFX3: {fileID: 0}
   _acMusic: {fileID: 0}
   _acSFX1: {fileID: 0}
   _acSFX2: {fileID: 0}
@@ -183,6 +184,7 @@ MonoBehaviour:
   _isLava: 0
   _isExplode: 0
   _thisLevelGoal: 0
+  _handlingLevelTransition: 0
 --- !u!4 &24148809
 Transform:
   m_ObjectHideFlags: 0

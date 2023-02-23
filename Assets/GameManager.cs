@@ -61,6 +61,13 @@ public class GameManager : MonoBehaviour
     public int _thisLevelGoal = 0;
     public bool _handlingLevelTransition = false;
 
+    // don't let the stripper do stupid things, things
+    private MeshFilter _dummyMF;
+    private MeshRenderer _dummyMR;
+    private SphereCollider _dummySC;
+    private BoxCollider _dummyBC;
+    private GameObject _dummyGO;
+
     /// <summary>
     /// Constructor singleton
     /// </summary>
@@ -88,6 +95,14 @@ public class GameManager : MonoBehaviour
         // we need explicit control of this
 
         Application.targetFrameRate = 60;
+
+        // this is super stupid...Unity is killing CreatePrimitive by stripping important code from the Engine itself
+
+        _dummyGO = new GameObject("StupidGameObject");
+        _dummyMF = _dummyGO.AddComponent<MeshFilter>();
+        _dummyMR = _dummyGO.AddComponent<MeshRenderer>();
+        _dummySC = _dummyGO.AddComponent<SphereCollider>();
+        _dummyBC = _dummyGO.AddComponent<BoxCollider>();
 
         // manage player prefs
         if (PlayerPrefs.HasKey("Level"))

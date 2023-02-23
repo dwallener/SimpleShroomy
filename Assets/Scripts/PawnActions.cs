@@ -83,11 +83,6 @@ public class PawnActions : MonoBehaviour
             // nothing
         }
 
-        // come back to rotations later
-
-        //transform.forward = GameManager.Instance._spinDir;
-        //Vector3 _rotate = new Vector3(0f, 0f, GameManager.Instance._spinAngle);
-        //transform.rotation = Quaternion.LookRotation(GameManager.Instance._spinDir);
     }
 
 }
