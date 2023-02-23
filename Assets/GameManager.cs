@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public AudioSource _asMusic;
     public AudioSource _asSFX1;
     public AudioSource _asSFX2;
+    public AudioSource _asSFX3;
     public AudioClip _acMusic; // music loop
     public AudioClip _acSFX1; // mushroom pop sound
     public AudioClip _acSFX2; // win sound
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
     public bool _isLava = false;
     public bool _isExplode = false;
     public int _thisLevelGoal = 0;
+    public bool _handlingLevelTransition = false;
 
     /// <summary>
     /// Constructor singleton
@@ -118,7 +120,7 @@ public class GameManager : MonoBehaviour
         // PLANET
 
         //int _planetIndex = Random.Range(0, GameState._prefabList.Length);
-        int _planetIndex = Random.Range(0, 40); // tundra only for now
+        int _planetIndex = Random.Range(0, 40); 
         Debug.Log("Planet Index: " + _planetIndex);
         Debug.Log("Planet Name: " + GameState._prefabList[_planetIndex]);
 
@@ -127,14 +129,27 @@ public class GameManager : MonoBehaviour
 
         if (_levelType.Contains("Lava"))
         {
+            // some of the planets are too tricky for naive lava detection
+            // Tundra5, Tundra2
+            if (_planetIndex == 24)
+            {
+                _planetIndex = Random.Range(0, 20);
+                Debug.Log("Skip Tundra5");
+            }
+            if (_planetIndex == 21) {
+                _planetIndex = Random.Range(0, 20);
+                Debug.Log("Skip Tundra2");
+            }
+
             _isLava = true;
             // structure is 40 normal worlds, 40 lava equivalents
             _globe = Instantiate(Resources.Load(
                 GameState._prefabList[_planetIndex + 40], typeof(GameObject)), Vector3.zero, Quaternion.identity)
                 as GameObject;
-            var _newCenter = _globe.transform.position - _globe.GetComponent<MeshFilter>().mesh.bounds.center;
+            // should this be + or - ?
+            var _newCenter = _globe.transform.position + _globe.GetComponent<MeshFilter>().mesh.bounds.center;
             _globe.transform.position = _newCenter;
-            Debug.Log("New Center: " + _newCenter);
+            _globe.transform.localScale = GameState._startingScale[_planetIndex];
         }
         else
         {
@@ -212,6 +227,7 @@ public class GameManager : MonoBehaviour
         // get clips
         _acSFX1 = Resources.Load<AudioClip>("SFX/pop1");
         _acSFX2 = Resources.Load<AudioClip>("SFX/success1");
+        _acSFX3 = Resources.Load<AudioClip>("SFX/fail1");
         _acMusic = Resources.Load<AudioClip>("SFX/gypsy1");
 
         // assign music channel
@@ -232,6 +248,12 @@ public class GameManager : MonoBehaviour
         _asSFX2.loop = false;
         _asSFX2.clip = _acSFX2;
         _asSFX2.volume = 1f;
+
+        // assign sfx2 channel
+        _asSFX3 = _asAll[3];
+        _asSFX3.loop = false;
+        _asSFX3.clip = _acSFX3;
+        _asSFX3.volume = 1f;
 
         // always reset, early often late, always
         _playerScore = 0;
@@ -299,7 +321,7 @@ public class GameManager : MonoBehaviour
 
         // update the timer
         _countDownf -= Time.deltaTime;
-        
+
         // this is just to debug scene management
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -314,6 +336,7 @@ public class GameManager : MonoBehaviour
         string _levelType = GameState._levelType[GameState._level % 12];
 
         // bucket the level types
+        // can only do one of these during a scene...then everything gets destroyed
 
         // !Lava
 
@@ -324,11 +347,13 @@ public class GameManager : MonoBehaviour
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-        else if (_levelType == "Collection TT")
+        else if (_levelType == "Collection TT" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds!",
                 GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
@@ -339,18 +364,22 @@ public class GameManager : MonoBehaviour
             if (_countDownf <= 0f)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-        else if (_levelType == "Find")
+        else if (_levelType == "Find" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Find the magic Shroomie!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
@@ -359,12 +388,13 @@ public class GameManager : MonoBehaviour
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-
-        if (_levelType == "Find TT")
+        else if (_levelType == "Find TT" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Find the magic Shroomie in {0} seconds!",
                 GameState._levelTimers[GameState._level / 6]);
@@ -373,19 +403,22 @@ public class GameManager : MonoBehaviour
             if (_countDownf <= 0f)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= 1)
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-
-        if (_levelType == "Clearcut")
+        else if (_levelType == "Clearcut" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Collect all the shroomies!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
@@ -393,12 +426,13 @@ public class GameManager : MonoBehaviour
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-
-        if (_levelType == "Clearcut TT")
+        else if (_levelType == "Clearcut TT" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds!",
                GameState._levelTimers[GameState._level / 6]);
@@ -407,21 +441,22 @@ public class GameManager : MonoBehaviour
             if (_countDownf < 0f)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= GameManager.Instance._thisLevelGoal)
             {
                 // force player score to 0...?
                 _playerScore = 0;
+                _handlingLevelTransition = true;
                 AdvanceLevel(true);
                 return;
             }
         }
-
         // !Lava
-
-        if (_levelType == "Collection Lava")
+        else if (_levelType == "Collection Lava")
         {
             _messageText.text = string.Format("Collect {0} Shroomies! Lava! Bad!", GameState._levelGoals[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
@@ -476,8 +511,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-
-        if (_levelType == "Find Lava TT")
+        else if (_levelType == "Find Lava TT")
         {
             _messageText.text = string.Format("Find the magic Shroomie in {0} seconds! Lava! Bad!",
                 GameState._levelTimers[GameState._level / 6]);
@@ -497,8 +531,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-
-        if (_levelType == "Clearcut Lava")
+        else if (_levelType == "Clearcut Lava")
         {
             _messageText.text = string.Format("Collect all the shroomies! Lava! Bad!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of " + _thisLevelGoal;
@@ -516,8 +549,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-
-        if (_levelType == "Clearcut Lava TT")
+        else if (_levelType == "Clearcut Lava TT")
         {
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds! Lava! Bad!",
                GameState._levelTimers[GameState._level / 6]);
@@ -540,14 +572,26 @@ public class GameManager : MonoBehaviour
 
     }
 
-    /// <summary>7
-    /// We'll want to encapsulate some of the gameplay tracking above into here
-    /// </summary>
-    public void PlayLevel()
+    public IEnumerator LevelAdvance(bool _won)
     {
 
-    }
+        // only advance level if we win!
+        if (_won)
+        {
+            GameState._level++;
+            _asSFX2.Play();
+            Debug.Log("Playing Success sound");
+        }
+        else
+        {
+            Debug.Log("Playing Fail sound");
+            _asSFX3.Play();
+        }
+        PlayerPrefs.SetInt("Level", GameState._level);
+        //Debug.Log("Level: " + GameState._level);
+        yield return StartCoroutine(LoadNextScene(_won));
 
+    }
 
     // move to the next level
     /// <summary>
@@ -560,6 +604,11 @@ public class GameManager : MonoBehaviour
         {
             GameState._level++;
             _asSFX2.Play();
+        }
+        else
+        {
+            Debug.Log("Playing Fail sound");
+            _asSFX3.Play();
         }
         PlayerPrefs.SetInt("Level", GameState._level);
         //Debug.Log("Level: " + GameState._level);
@@ -578,11 +627,9 @@ public class GameManager : MonoBehaviour
         // keep consistent fadeout, change the win/lost message
         if (_won)
         {
-            //yield return StartCoroutine(FadeOut(0.5f));
         }
         else
         {
-            //yield return StartCoroutine(FadeOutLoser(0.5f));
         }
 
         // if we've done the level reading/randomization correctly

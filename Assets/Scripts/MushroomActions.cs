@@ -5,7 +5,7 @@ using UnityEngine;
 public class MushroomActions : MonoBehaviour
 {
 
-    public float _force = 500f;
+    public float _force = 5000f;
     public float _radius = 2f;
     public int _cubesPerAxis = 4;
 

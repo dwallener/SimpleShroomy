@@ -26,6 +26,38 @@ public class PawnActions : MonoBehaviour
         {
             // this shouldn't be needed and will probably fuck with physics
             transform.position = new Vector3(0f, 0f, -2.5f);
+            // -90 on x puts it upright
+            // -45 on z puts it upright and looking left, up
+            // +45 on z puts it upright and looking right, down
+            // -45 on y puts it upright and looking left, up
+            // +45 on y puts it upright and looking right, down
+            // -45 on y,z puts it on its back looking up
+            // +45 on y,z puts it face down
+            // -45 on x,z puts it looking NW    <--
+            // +45 on x,z puts it on its side looking SW
+            //transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
+
+            /* all these have problems
+             * 
+            // this rotates ShroomieKing on correct access...now to figure out correct direction
+            //var _newRot = new Vector3(0f, 1f, 0f);
+            //var _angle = Mathf.Atan2(GameManager.Instance._spinDir.y, GameManager.Instance._spinDir.x) * Mathf.Rad2Deg;
+            //Debug.Log("Angle: " + _angle);
+            //var _newRot = new Vector3(0f, _angle, 0f);
+
+            //var _lookPos = new Vector3(100f * GameManager.Instance._spinDir.x, 100f * GameManager.Instance._spinDir.y, -2.7f);
+            //Debug.Log("LookAt: " + _lookPos);
+
+            //Quaternion _lookRot = Quaternion.LookRotation(_lookPos - transform.position);
+            //transform.rotation = _lookRot;
+
+            // transform.LookAt(_lookPos); // rotates on all axis
+
+            //transform.Rotate(_newRot);
+            //transform.LookAt(new Vector3(GameManager.Instance._spinDir.x, GameManager.Instance._spinDir.y, -2.7f));
+
+            *
+            */
         }
         else
         {
@@ -43,7 +75,7 @@ public class PawnActions : MonoBehaviour
         {
             if ((_hit.distance < 0.15f) && (_rb != null))
             {
-                Debug.Log("Explode!");
+                //Debug.Log("Explode!");
                 GameManager.Instance._isExplode = true;
                 // blow him up!!!
                 // power, origin, radius

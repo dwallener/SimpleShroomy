@@ -141,23 +141,23 @@ public class GameState
     {
         // alien
         new Vector3(1f, 1f, 1f),
+        new Vector3(0.995f, 0.995f, 0.995f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
+        new Vector3(1.01f, 1.01f, 1.01f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
 
         // earthish
         new Vector3(1f, 1f, 1f),
+        new Vector3(0.99f, 0.99f, 0.99f),
         new Vector3(1f, 1f, 1f),
+        new Vector3(0.98f, 0.98f, 0.98f),
         new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
+        new Vector3(0.99f, 0.99f, 0.99f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
@@ -165,16 +165,16 @@ public class GameState
 
 
         // tundra
-        new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
+        new Vector3(0.933f, 0.933f, 0.933f),
+        new Vector3(0.925f, 0.925f, 0.925f), // skipping for lava
+        new Vector3(0.98f, 0.98f, 0.98f),
+        new Vector3(0.978f, 0.978f, 0.978f),
+        new Vector3(0.9473f, 0.9473f, 0.9473f), // skipping for lava
 
         // desert
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
-        new Vector3(1f, 1f, 1f),
+        new Vector3(0.98f, 0.98f, 0.98f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
 
