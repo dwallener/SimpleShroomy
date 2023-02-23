@@ -450,30 +450,35 @@ public class GameManager : MonoBehaviour
             {
                 // force player score to 0...?
                 _playerScore = 0;
+                //AdvanceLevel(true);
                 _handlingLevelTransition = true;
-                AdvanceLevel(true);
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
         // !Lava
-        else if (_levelType == "Collection Lava")
+        else if (_levelType == "Collection Lava" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Collect {0} Shroomies! Lava! Bad!", GameState._levelGoals[GameState._level / 5]);
             _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
             if (_isExplode)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-        else if (_levelType == "Collection Lava TT")
+        else if (_levelType == "Collection Lava TT" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Collect {0} Shroomies in {1} seconds! Lava! Bad!",
                 GameState._levelGoals[GameState._level / 5], GameState._levelTimers[GameState._level / 5]);
@@ -482,36 +487,44 @@ public class GameManager : MonoBehaviour
             if (_isExplode || _countDownf <= 0f)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= GameState._levelGoals[GameState._level / 6])
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-        else if (_levelType == "Find Lava")
+        else if (_levelType == "Find Lava" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Find the magic Shroomie! Lava! Bad!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of 1";
             if (_isExplode)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= 1)
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-        else if (_levelType == "Find Lava TT")
+        else if (_levelType == "Find Lava TT" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Find the magic Shroomie in {0} seconds! Lava! Bad!",
                 GameState._levelTimers[GameState._level / 6]);
@@ -520,36 +533,44 @@ public class GameManager : MonoBehaviour
             if (_isExplode || _countDownf <= 0f)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= 1)
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-        else if (_levelType == "Clearcut Lava")
+        else if (_levelType == "Clearcut Lava" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Collect all the shroomies! Lava! Bad!");
             _scoreText.text = "Score: " + _playerScore.ToString() + " of " + _thisLevelGoal;
             if (_isExplode)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= GameManager.Instance._thisLevelGoal)
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }
-        else if (_levelType == "Clearcut Lava TT")
+        else if (_levelType == "Clearcut Lava TT" && !_handlingLevelTransition)
         {
             _messageText.text = string.Format("Collect all the shroomies in {0} seconds! Lava! Bad!",
                GameState._levelTimers[GameState._level / 6]);
@@ -558,14 +579,18 @@ public class GameManager : MonoBehaviour
             if (_isExplode || _countDownf <= 0)
             {
                 _playerScore = 0;
-                AdvanceLevel(false);
+                //AdvanceLevel(false);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(false));
                 return;
             }
             if (_playerScore >= GameManager.Instance._thisLevelGoal)
             {
                 // force player score to 0...?
                 _playerScore = 0;
-                AdvanceLevel(true);
+                //AdvanceLevel(true);
+                _handlingLevelTransition = true;
+                StartCoroutine(LevelAdvance(true));
                 return;
             }
         }

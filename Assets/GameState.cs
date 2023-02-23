@@ -154,7 +154,7 @@ public class GameState
         // earthish
         new Vector3(1f, 1f, 1f),
         new Vector3(0.99f, 0.99f, 0.99f),
-        new Vector3(1f, 1f, 1f),
+        new Vector3(1.01f, 1.01f, 1.01f),
         new Vector3(0.98f, 0.98f, 0.98f),
         new Vector3(1f, 1f, 1f),
         new Vector3(0.99f, 0.99f, 0.99f),
@@ -186,7 +186,7 @@ public class GameState
         new Vector3(1f, 1f, 1f),
 
         // temperate
-        new Vector3(1f, 1f, 1f),
+        new Vector3(0.99f, 0.99f, 0.99f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
         new Vector3(1f, 1f, 1f),
