@@ -815,7 +815,7 @@ public class GameManager : MonoBehaviour
 
         string _levelType = GameState._levelType[GameState._level % 12];
 
-        GameObject[] _mushroom = new GameObject[_rngNumShrooms];
+        GameObject[] _mushroom = new GameObject[_rngNumShrooms+1];
 
         // have some objects drop down on it
         for (int i = 0; i < _rngNumShrooms; i++)
@@ -832,6 +832,18 @@ public class GameManager : MonoBehaviour
             _mushroom[i].transform.parent = _globe.transform;
             _mushroom[i].name = "Shroomie";
         }
+
+        // drop one bad mushroom
+        _shroomPrefab = "Prefabs/yellowMushroom";
+        _rng = Random.onUnitSphere * _fallHeight;
+        //Debug.Log("@: " + _rng.x + " " + _rng.y + " " + _rng.z);
+        _mushroom[_rngNumShrooms] = Instantiate(Resources.Load(_shroomPrefab, typeof(GameObject)), _rng, Quaternion.identity) as GameObject;
+        _mushroom[_rngNumShrooms].AddComponent<MushroomActions>();
+        _mushroom[_rngNumShrooms].AddComponent<Rigidbody>();
+        _mushroom[_rngNumShrooms].AddComponent<GravityBody>(); // make it feel gravity
+        _mushroom[_rngNumShrooms].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        _mushroom[_rngNumShrooms].transform.parent = _globe.transform;
+        _mushroom[_rngNumShrooms].name = "BadShroomie";
 
     }
 

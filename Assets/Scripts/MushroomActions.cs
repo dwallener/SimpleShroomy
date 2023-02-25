@@ -1,21 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class MushroomActions : MonoBehaviour
 {
-
+    // shroomie stuff
     public float _force = 0f;
     public float _radius = 2f;
     public int _cubesPerAxis = 4;
     public string _shroomPrefab;
 
+    // local go
     GameObject _thisgo;
+
+    // postprocessing thingies
+    public PostProcessVolume _volume;
+    public Bloom _bloom = null;
+    public ChromaticAberration _chromAb = null;
 
     // Start is called before the first frame update
     void Start()
     {
         _force = 1000f;
+
+        // cache references for postprocessing
+        _volume = GameObject.FindWithTag("pp").GetComponent<PostProcessVolume>();
+        Debug.Log("ppVolume: " + _volume);
+        if (!_volume.profile.TryGetSettings(out _bloom))
+        {
+            Debug.Log("Can't find bloom");
+        }
+        if (!_volume.profile.TryGetSettings(out _chromAb))
+        {
+            Debug.Log("Can't find ChromAb");
+        }
+        _volume.profile.TryGetSettings(out _bloom);
+        _volume.profile.TryGetSettings(out _chromAb);
+
     }
 
     // Update is called once per frame
@@ -36,6 +58,15 @@ public class MushroomActions : MonoBehaviour
             Debug.Log("Help! I've Fallen And I Can't Get Up!");
             MakeBang();
             Destroy(gameObject);
+
+            // if we are the bad shroomie, kick of the visual effects
+            if (this.gameObject.name == "BadShroomie")
+            {
+                Debug.Log("Bad Shroomie! Bad Trip!");
+                // find teh volume/component
+                _bloom.enabled.value = true;
+                _chromAb.enabled.value = true;
+            }
         }
     }
 

@@ -1630,7 +1630,7 @@ GameObject:
   - component: {fileID: 1966918067}
   m_Layer: 0
   m_Name: goPostProcessing
-  m_TagString: Untagged
+  m_TagString: pp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
