@@ -59,22 +59,22 @@ public class MushroomActions : MonoBehaviour
                         case 0:
                             _shroomPrefab = "Prefabs/pinkMushroom";
                             _thisgo = Instantiate(Resources.Load(
-                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0.2f, 0.5f), 0f + Random.Range(0.2f, 0.5f), -2.7f + Random.Range(0.2f, 0.5f)), Quaternion.identity) as GameObject;
                             break;
                         case 1:
                             _shroomPrefab = "Prefabs/blueMushroom";
                             _thisgo = Instantiate(Resources.Load(
-                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0.2f, 0.5f), 0f + Random.Range(0.2f, 0.5f), -2.7f + Random.Range(0.2f, 0.5f)), Quaternion.identity) as GameObject;
                             break;
                         case 2:
                             _shroomPrefab = "Prefabs/greenMushroom";
                             _thisgo = Instantiate(Resources.Load(
-                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0.2f, 0.5f), 0f + Random.Range(0.2f, 0.5f), -2.7f + Random.Range(0.2f, 0.5f)), Quaternion.identity) as GameObject;
                             break;
                         default:
                             _shroomPrefab = "Prefabs/pinkMushroom";
                             _thisgo = Instantiate(Resources.Load(
-                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f)), Quaternion.identity) as GameObject;
+                                _shroomPrefab, typeof(GameObject)), new Vector3(0f + Random.Range(0.2f, 0.5f), 0f + Random.Range(0.2f, 0.5f), -2.7f + Random.Range(0.2f, 0.5f)), Quaternion.identity) as GameObject;
                             break;
                     }
 

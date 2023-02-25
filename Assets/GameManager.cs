@@ -285,6 +285,8 @@ public class GameManager : MonoBehaviour
         //_score.GetComponent<TextMeshProUGUI>().text = "Score: " + 0.ToString() + " of ";
         _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
 
+        Camera.main.gameObject.AddComponent<CameraFollowPlayer>();
+
         // need different goal for each type
         string _levelType = GameState._levelType[GameState._level % 12];
 
