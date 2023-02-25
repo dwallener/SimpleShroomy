@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
         _acSFX1 = Resources.Load<AudioClip>("SFX/pop1");
         _acSFX2 = Resources.Load<AudioClip>("SFX/success1");
         _acSFX3 = Resources.Load<AudioClip>("SFX/fail2"); // sad whistle
-        var _musicClip = "SFX/gypsy_ml_" + Random.Range(1, 7).ToString();
+        var _musicClip = "SFX/gypsy_ml_" + Random.Range(1, 8).ToString();
         _acMusic = Resources.Load<AudioClip>(_musicClip);
         //_acMusic = Resources.Load<AudioClip>("SFX/gypsy1");
 
