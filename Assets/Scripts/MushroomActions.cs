@@ -24,6 +24,7 @@ public class MushroomActions : MonoBehaviour
     {
         _force = 1000f;
 
+        // amazingly this seems to work!
         // cache references for postprocessing
         _volume = GameObject.FindWithTag("pp").GetComponent<PostProcessVolume>();
         Debug.Log("ppVolume: " + _volume);
