@@ -27,7 +27,7 @@ public class MushroomActions : MonoBehaviour
         // amazingly this seems to work!
         // cache references for postprocessing
         _volume = GameObject.FindWithTag("pp").GetComponent<PostProcessVolume>();
-        Debug.Log("ppVolume: " + _volume);
+        //Debug.Log("ppVolume: " + _volume);
         if (!_volume.profile.TryGetSettings(out _bloom))
         {
             Debug.Log("Can't find bloom");

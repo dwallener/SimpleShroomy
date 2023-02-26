@@ -22,6 +22,7 @@ public class GlobeActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         // screen touches
         if (Input.touchCount > 0)
         {
@@ -43,12 +44,14 @@ public class GlobeActions : MonoBehaviour
             var i = Time.deltaTime * lerpSpeed;
             speed = Vector3.Lerp(speed, Vector3.zero, i);
         }
-
+        */
 
         if (Input.GetMouseButton(0) && dragging)
         {
             speed = new Vector3(-Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0);
             avgSpeed = Vector3.Lerp(avgSpeed, speed, Time.deltaTime * 5);
+            GameManager.Instance._spinDir = new Vector3(-Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0);
+            GameManager.Instance._spinAngle = Mathf.Atan2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
         }
         else
         {
@@ -59,13 +62,14 @@ public class GlobeActions : MonoBehaviour
             }
             var i = Time.deltaTime * lerpSpeed;
             speed = Vector3.Lerp(speed, Vector3.zero, i);
+
         }
 
         transform.Rotate(Camera.main.transform.up * speed.x * rotationSpeed, Space.World);
         transform.Rotate(Camera.main.transform.right * speed.y * rotationSpeed, Space.World);
 
-        GameManager.Instance._spinDir = new Vector3 (-Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0);
-        GameManager.Instance._spinAngle = Mathf.Atan2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
+        //GameManager.Instance._spinDir = new Vector3 (-Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0);
+        //GameManager.Instance._spinAngle = Mathf.Atan2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
 
     }
 

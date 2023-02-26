@@ -89,6 +89,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Angle 0.5, 0.5 :: " + Mathf.Atan2(0.5f, 0.5f) * 180f / Mathf.PI);
+        Debug.Log("Angle -0.5, -0.5 :: " + Mathf.Atan2(-0.5f, -0.5f) * 180f / Mathf.PI);
+        Debug.Log("Angle -0.5, 0.5 :: " + Mathf.Atan2(-0.5f, 0.5f) * 180f / Mathf.PI);
+        Debug.Log("Angle 0.5, -0.5 :: " + Mathf.Atan2(0.5f, -0.5f) * 180f / Mathf.PI);
+        Debug.Log("Angle 0, 1 :: " + Mathf.Atan2(0f, 1f) * 180f / Mathf.PI);
+        Debug.Log("Angle 1, 0 :: " + Mathf.Atan2(1f, 0f) * 180f / Mathf.PI);
+        Debug.Log("Angle -1, 0 :: " + Mathf.Atan2(-1f, 0f) * 180f / Mathf.PI);
+        Debug.Log("Angle 0, -1 :: " + Mathf.Atan2(0f, -1f) * 180f / Mathf.PI);
 
         // this is super important...mobile locks to a max fps based on screen refresh...
         // in Editor fps is 100s to 1000s of fps...causes physics problems.
