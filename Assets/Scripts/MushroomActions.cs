@@ -71,10 +71,10 @@ public class MushroomActions : MonoBehaviour
                 //MakeFlower();
                 //InvokeRepeating("MakeFlower", 0f, 0.5f);
                 //StartCoroutine(MakeFlowers(300));
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     MakeFlower();
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.2f);
                 }
             }
             else
@@ -147,17 +147,14 @@ public class MushroomActions : MonoBehaviour
         _thisgo.GetComponent<Rigidbody>().useGravity = false;
         _thisgo.GetComponent<Rigidbody>().mass = 1000000f;
         _thisgo.AddComponent<GravityBody>();
+        _thisgo.AddComponent<HappyFlowerActions>();
 
-        //_thisgo.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-        _thisgo.transform.localScale = Vector3.Lerp(new Vector3(0.2f, 0.2f, 0.2f), new Vector3(0f, 0f, 0f), Time.deltaTime * 20);
+        //_thisgo.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0f, 0f, 0f), Time.deltaTime * 10);
 
         // position is guaranteed to be close to Pawn position
-        //_thisgo.transform.position = new Vector3(0f + Random.Range(0f,0.2f), 0f + Random.Range(0f, 0.2f), -3.2f + Random.Range(0f, 0.2f));
-        _thisgo.transform.position = new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f));
-        _thisgo.transform.rotation = Random.rotation;
-        //_thisgo.GetComponent<Rigidbody>().AddExplosionForce(_force / 1000f, new Vector3(0f, 0f, -2.7f), _radius);
+        //_thisgo.transform.position = new Vector3(0f + Random.Range(0f, 0.2f), 0f + Random.Range(0f, 0.2f), -2.7f + Random.Range(0f, 0.2f));
+        //_thisgo.transform.rotation = Random.rotation;
         _thisgo.GetComponent<Rigidbody>().AddForce(1f * new Vector3(0f, 0f, -2.7f), ForceMode.Impulse);
-        //_thisgo.AddComponent<ShroomParticleActions>();
 
         Destroy(_thisgo, 3f);
 
