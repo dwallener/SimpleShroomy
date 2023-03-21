@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     public bool _handlingLevelTransition = false;
 
     // camera stuff
-    private bool _cameraFollow = true;
+    private bool _cameraFollow = false;
 
     /// <summary>
     /// Constructor singleton
@@ -85,7 +85,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Angle 0.5, 0.5 :: " + Mathf.Atan2(0.5f, 0.5f) * 180f / Mathf.PI);
+
+/*
+ *      Debug.Log("Angle 0.5, 0.5 :: " + Mathf.Atan2(0.5f, 0.5f) * 180f / Mathf.PI);
         Debug.Log("Angle -0.5, -0.5 :: " + Mathf.Atan2(-0.5f, -0.5f) * 180f / Mathf.PI);
         Debug.Log("Angle -0.5, 0.5 :: " + Mathf.Atan2(-0.5f, 0.5f) * 180f / Mathf.PI);
         Debug.Log("Angle 0.5, -0.5 :: " + Mathf.Atan2(0.5f, -0.5f) * 180f / Mathf.PI);
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Angle 1, 0 :: " + Mathf.Atan2(1f, 0f) * 180f / Mathf.PI);
         Debug.Log("Angle -1, 0 :: " + Mathf.Atan2(-1f, 0f) * 180f / Mathf.PI);
         Debug.Log("Angle 0, -1 :: " + Mathf.Atan2(0f, -1f) * 180f / Mathf.PI);
+*/
 
         // this is super important...mobile locks to a max fps based on screen refresh...
         // in Editor fps is 100s to 1000s of fps...causes physics problems.
@@ -248,7 +251,8 @@ public class GameManager : MonoBehaviour
         _asMusic.clip = _acMusic;
         _asMusic.volume = 1f;
         _asMusic.loop = true;
-        _asMusic.Play(0);
+        // turn off for gameplay capture
+        //_asMusic.Play(0);
 
         // assign sfx1 channel
         _asSFX1 = _asAll[1];

@@ -62,50 +62,41 @@ public class PawnActions : MonoBehaviour
             {
                 // NN
                 case < 22 and > -22:
-                    Debug.Log("Direction: N");
                     transform.localRotation = Quaternion.Euler(0, -90, 135);
                     break;
                 // NE
                 case < -22 and > (-90 + 22):
-                    Debug.Log("Direction: NE");
                     transform.localRotation = Quaternion.Euler(-45, -90, 135);
                     break;
                 // EE
                 case > (-90 - 22) and < (-90 + 22):
-                    Debug.Log("Direction: E");
                     transform.localRotation = Quaternion.Euler(-90, -90, 135);
                     break;
                 // SE
                 case < (-90 - 22) and > (-180 + 22):
-                    Debug.Log("Direction: SE");
                     transform.localRotation = Quaternion.Euler(90, 45, -135);
                     break;
                 // SS - special case...less than last negative bound, greater than last positive bound (180 is 180)
                 case > (180-22) or < (-180 + 22):
-                    Debug.Log("Direction: S");
                     transform.localRotation = Quaternion.Euler(0, 90, -135);
                     break;
                 // SW
                 case > (135 - 22) and < (135 + 22):
-                    Debug.Log("Direction: SW");
                     transform.localRotation = Quaternion.Euler(45, 90, -135);
                     break;
                 // WW
                 case > (90 - 22) and < (90 + 22):
                     transform.localRotation = Quaternion.Euler(90, 90, -135);
-                    Debug.Log("Direction: W");
                     break;
                 // NW
                 case > 22 and < (45 + 22):
                     transform.localRotation = Quaternion.Euler(-45, 90, -135);
-                    Debug.Log("Direction: NW");
                     break;
 
                 default:
                     break;
                    
             }
-            //Debug.Log("Spin angle: " + Mathf.Atan2(GameManager.Instance._spinDir.x, GameManager.Instance._spinDir.y) * 180f / Mathf.PI);
         }
         else
         {
