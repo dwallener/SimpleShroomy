@@ -88,8 +88,9 @@ public class MushroomActions : MonoBehaviour
             {
                 Debug.Log("Bad Shroomie! Bad Trip!");
                 // find teh volume/component
-                _bloom.enabled.value = true;
-                _chromAb.enabled.value = true;
+                // Turn off for now...
+                //_bloom.enabled.value = true;
+                //_chromAb.enabled.value = true;
             }
         }
     }

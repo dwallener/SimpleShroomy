@@ -61,8 +61,9 @@ public class GameManager : MonoBehaviour
     public int _thisLevelGoal = 0;
     public bool _handlingLevelTransition = false;
 
-    // camera stuff
-    private bool _cameraFollow = false;
+    // demo/clip stuff
+    private bool _cameraFollow = true;
+    private bool _hudOff = true;
 
     /// <summary>
     /// Constructor singleton
@@ -285,9 +286,15 @@ public class GameManager : MonoBehaviour
         //_score.GetComponent<TextMeshProUGUI>().text = "Score: " + 0.ToString() + " of ";
         _scoreText.text = "Score: " + _playerScore.ToString() + " of ";
 
+        // demo /capture setup
         if (_cameraFollow)
         {
             Camera.main.gameObject.AddComponent<CameraFollowPlayer>();
+        }
+
+        if (_hudOff)
+        {
+            GameObject.Find("CanvasHUD").SetActive(false);
         }
 
         // need different goal for each type
