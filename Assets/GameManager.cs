@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
     public bool _handlingLevelTransition = false;
 
     // demo/clip stuff
-    private bool _cameraFollow = true;
-    private bool _hudOff = true;
+    private bool _cameraFollow = false;
+    private bool _hudOff = false;
 
     /// <summary>
     /// Constructor singleton
@@ -87,16 +87,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
 
-/*
- *      Debug.Log("Angle 0.5, 0.5 :: " + Mathf.Atan2(0.5f, 0.5f) * 180f / Mathf.PI);
-        Debug.Log("Angle -0.5, -0.5 :: " + Mathf.Atan2(-0.5f, -0.5f) * 180f / Mathf.PI);
-        Debug.Log("Angle -0.5, 0.5 :: " + Mathf.Atan2(-0.5f, 0.5f) * 180f / Mathf.PI);
-        Debug.Log("Angle 0.5, -0.5 :: " + Mathf.Atan2(0.5f, -0.5f) * 180f / Mathf.PI);
-        Debug.Log("Angle 0, 1 :: " + Mathf.Atan2(0f, 1f) * 180f / Mathf.PI);
-        Debug.Log("Angle 1, 0 :: " + Mathf.Atan2(1f, 0f) * 180f / Mathf.PI);
-        Debug.Log("Angle -1, 0 :: " + Mathf.Atan2(-1f, 0f) * 180f / Mathf.PI);
-        Debug.Log("Angle 0, -1 :: " + Mathf.Atan2(0f, -1f) * 180f / Mathf.PI);
-*/
+        // TinySauce integration
+
+        TinySauce.OnGameStarted(GameState._level.ToString());
 
         // this is super important...mobile locks to a max fps based on screen refresh...
         // in Editor fps is 100s to 1000s of fps...causes physics problems.
@@ -681,9 +674,13 @@ public class GameManager : MonoBehaviour
         // keep consistent fadeout, change the win/lost message
         if (_won)
         {
+            // TinySauce
+            TinySauce.OnGameFinished(GameState._level);
+            TinySauce.OnGameFinished(true, GameState._level);
         }
         else
         {
+            TinySauce.OnGameFinished(true, GameState._level - 1);
         }
 
         // if we've done the level reading/randomization correctly

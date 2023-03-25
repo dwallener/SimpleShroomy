@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa11ec82e9746928e211e7f096812ca, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  gameAnalyticsIosGameKey: 
+  gameAnalyticsIosSecretKey: 
+  gameAnalyticsAndroidGameKey: 013c61801e4dfee8d37b890fb5707d9b
+  gameAnalyticsAndroidSecretKey: f7e97d1326340cc65eed2a4e6f07bcf14fc202f1
+  facebookAppId: 957034942131110
+  facebookClientToken: 4bb2578318294599dfff956ebbd90841
+  adjustIOSToken: 
+  adjustAndroidToken: tg72bn50xq0w
+  EditorIdfa: 66a9a42e-b966-4e6a-914f-59821a15ba54
+  UseRemoteConfig: 0
+  UseVoodooAnalytics: 1
+  companyName: All Necessary Things
+  privacyPolicyURL: https://www.freeprivacypolicy.com/live/0667a5c5-595a-4fc1-b55f-e154fa8fd6ac
+  developerContactEmail: allnecessarythings@gmail.com
