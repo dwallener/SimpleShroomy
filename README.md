@@ -1,9 +1,17 @@
 # SimpleShroomy
 
-Current status: infinity levels, scenemanager, our own gravity...all that stuff work
+Current status: 
+
+- infinity levels
+- scenemanager 
+- our own gravity
+- basic 3D pawn
+- lava and not-lava levels
+- 6 different game modes (3 modes, each timed/untimed)
+- background music + SFX
+- player progression saved
+- pushed to Play store
 
 Next big pieces: 
-- add in our player, first as a Paper Mario like sprite
-- add collision between players/shrooms
-- add mesh collider to planet 
 
+- CPI test!
